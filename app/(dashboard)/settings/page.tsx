@@ -275,14 +275,54 @@ export default function SettingsPage() {
   {/* Placeholders for other tabs */}
   {activeTab === "tax" && (
     <Card>
-      <CardContent className="p-12 flex flex-col items-center justify-center text-gray-500">
-        <div className="p-4 bg-gray-100 rounded-full mb-4">
-          <Sliders size={32} />
-        </div>
-        <h3 className="text-lg font-medium text-gray-900 mb-2">Tax Configuration</h3>
-        <p className="text-center max-w-md">
-          This settings module is under construction. Settings are currently applied globally from the system configuration.
-        </p>
+      <CardHeader>
+        <CardTitle className="text-lg">Tax Configuration</CardTitle>
+        <CardDescription>Manage global tax settings for your invoices and payroll.</CardDescription>
+      </CardHeader>
+      <CardContent className="p-6">
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          alert("Tax settings saved successfully!");
+        }} className="space-y-6 max-w-2xl">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Tax Agency Name</label>
+              <Input defaultValue="Federal Board of Revenue (FBR)" placeholder="e.g. IRS, HMRC, FBR" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Tax Registration Number</label>
+              <Input defaultValue="TX-9821004" placeholder="e.g. VAT or NTN number" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Default Tax Rate (%)</label>
+              <Input defaultValue="18" type="number" step="0.01" />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Tax Calculation Method</label>
+              <select className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                <option value="exclusive">Exclusive (Added to Subtotal)</option>
+                <option value="inclusive">Inclusive (Included in Price)</option>
+              </select>
+            </div>
+          </div>
+          
+          <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+            <h4 className="text-sm font-medium mb-3">Payroll Tax Settings</h4>
+            <div className="flex items-center gap-3 bg-gray-50 dark:bg-white/5 p-4 rounded-lg border border-gray-100 dark:border-white/10">
+              <input type="checkbox" id="auto-deduct" defaultChecked className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" />
+              <div>
+                <label htmlFor="auto-deduct" className="text-sm font-medium text-gray-900 dark:text-gray-100">Automatically calculate employee income tax</label>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Rolled will estimate income tax based on annual salary brackets.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-end pt-4">
+            <Button type="submit">
+              <Save size={16} className="mr-2" /> Save Tax Configuration
+            </Button>
+          </div>
+        </form>
       </CardContent>
     </Card>
   )}

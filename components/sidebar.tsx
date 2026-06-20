@@ -11,6 +11,7 @@ import { LayoutDashboard, FileText, Palette, Users, Building2, Calculator, Recei
 } from "lucide-react"
 import { useState } from "react"
 import { useAuth } from "@/components/providers/AuthProvider"
+import { ThemeToggle } from "@/components/ThemeToggle"
 
 export function Sidebar() {
  const pathname = usePathname()
@@ -97,12 +98,15 @@ export function Sidebar() {
  })}
  </div>
 
- <div className="p-4 text-xs text-gray-500">
- <div className="flex items-center gap-2 mb-2">
- <span className="w-2 h-2 rounded-full bg-green-500"></span>
- System Online
- </div>
- <p>© 2026 Rolled Inc.</p>
+ <div className="p-4 text-xs text-white/60 flex items-center justify-between">
+  <div>
+   <div className="flex items-center gap-2 mb-2 font-medium">
+   <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.6)]"></span>
+   <span className="text-white/90">System Online</span>
+   </div>
+   <p className="text-white/50">© 2026 Rolled Inc.</p>
+  </div>
+  <ThemeToggle />
  </div>
  </aside>
  </>
