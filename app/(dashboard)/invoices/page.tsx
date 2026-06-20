@@ -263,7 +263,7 @@ export default function InvoicesPage() {
                     <div className="flex flex-col items-center">
                       <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">Scan to view and pay</h4>
                       <div className="p-3 bg-white rounded-xl shadow-sm border border-gray-200">
-                        <QRCode value={`https://rolled.app/invoice/${sendingInvoice.sharedToken}`} size={120} />
+                        <QRCode value={typeof window !== 'undefined' ? `${window.location.origin}/share/${sendingInvoice.sharedToken}` : `https://rolled-three.vercel.app/share/${sendingInvoice.sharedToken}`} size={120} />
                       </div>
                       <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center max-w-[250px]">
                         Point your camera at the QR code to instantly open this invoice on your mobile device.

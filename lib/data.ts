@@ -326,6 +326,10 @@ export function getInvoice(id: string): Invoice | undefined {
   return getInvoices().find(i => i.id === id);
 }
 
+export function getInvoiceByToken(token: string): Invoice | undefined {
+  return getInvoices().find(i => i.sharedToken === token);
+}
+
 export function saveInvoices(invoicesList: Invoice[]): void {
   if (typeof window !== "undefined") {
     localStorage.setItem("rolled_invoices", JSON.stringify(invoicesList));
