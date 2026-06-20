@@ -55,7 +55,7 @@ export default function SettingsPage() {
  <div className="space-y-6 animate-fade-in max-w-6xl mx-auto">
  <div>
  <h1 className="font-bold text-2xl mb-1">Settings</h1>
- <p className="text-gray-500 text-sm">Manage your company workspace and preferences.</p>
+ <p className="text-gray-500 dark:text-gray-400 text-sm">Manage your company workspace and preferences.</p>
  </div>
 
  <div className="flex flex-col md:flex-row gap-6">
@@ -63,22 +63,22 @@ export default function SettingsPage() {
  <div className="w-full md:w-64 shrink-0">
  <nav className="flex flex-row md:flex-col gap-1 overflow-x-auto hide-scrollbar pb-2 md:pb-0">
  <button onClick={() => setActiveTab("company")}
- className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "company" ? "bg-white text-primary shadow-sm " : "text-gray-600 hover:bg-gray-100 "}`}
+ className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "company" ? "bg-white dark:bg-white/10 text-primary shadow-sm " : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5"}`}
  >
  <Building size={18} /> Company Profile
  </button>
  <button onClick={() => setActiveTab("tax")}
- className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "tax" ? "bg-white text-primary shadow-sm " : "text-gray-600 hover:bg-gray-100 "}`}
+ className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "tax" ? "bg-white dark:bg-white/10 text-primary shadow-sm " : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5"}`}
  >
  <Sliders size={18} /> Tax Configuration
  </button>
  <button onClick={() => setActiveTab("users")}
- className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "users" ? "bg-white text-primary shadow-sm " : "text-gray-600 hover:bg-gray-100 "}`}
+ className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "users" ? "bg-white dark:bg-white/10 text-primary shadow-sm " : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5"}`}
  >
  <Users size={18} /> Users & Roles
  </button>
  <button onClick={() => setActiveTab("audit")}
- className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "audit" ? "bg-white text-primary shadow-sm " : "text-gray-600 hover:bg-gray-100 "}`}
+ className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "audit" ? "bg-white dark:bg-white/10 text-primary shadow-sm " : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5"}`}
  >
  <Shield size={18} /> Audit Log
  </button>
@@ -100,33 +100,33 @@ export default function SettingsPage() {
  </div>
  <div>
  <Button variant="secondary" className="mb-2">Upload Logo</Button>
- <p className="text-xs text-gray-500">Recommended size: 400x400px. Max 2MB.</p>
+ <p className="text-xs text-gray-500 dark:text-gray-400">Recommended size: 400x400px. Max 2MB.</p>
  </div>
  </div>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
  <div className="space-y-2">
- <label className="text-sm font-medium text-gray-700 ">Company Name</label>
+ <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Company Name</label>
  <Input defaultValue={company.name} />
  </div>
  <div className="space-y-2">
- <label className="text-sm font-medium text-gray-700 ">Base Currency</label>
- <select className="flex h-10 w-full rounded-md bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ransparent ">
- <option value="PKR" className="">PKR - Pakistani Rupee</option>
- <option value="USD" className="">USD - US Dollar</option>
- <option value="EUR" className="">EUR - Euro</option>
- <option value="GBP" className="">GBP - British Pound</option>
+ <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Base Currency</label>
+ <select className="flex h-10 w-full rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1a1a24] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 dark:text-gray-100 transition-colors">
+ <option value="PKR" className="dark:bg-[#1a1a24]">PKR - Pakistani Rupee</option>
+ <option value="USD" className="dark:bg-[#1a1a24]">USD - US Dollar</option>
+ <option value="EUR" className="dark:bg-[#1a1a24]">EUR - Euro</option>
+ <option value="GBP" className="dark:bg-[#1a1a24]">GBP - British Pound</option>
  </select>
  </div>
  <div className="space-y-2">
- <label className="text-sm font-medium text-gray-700 ">Email Address</label>
+ <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
  <Input defaultValue={company.email} type="email" />
  </div>
  <div className="space-y-2">
- <label className="text-sm font-medium text-gray-700 ">Phone Number</label>
+ <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Phone Number</label>
  <Input defaultValue={company.phone} />
  </div>
  <div className="space-y-2 md:col-span-2">
- <label className="text-sm font-medium text-gray-700 ">Business Address</label>
+ <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Business Address</label>
  <Input defaultValue={company.address} />
  </div>
  </div>
@@ -140,7 +140,7 @@ export default function SettingsPage() {
  </Card>
 
   <Card>
-    <CardHeader className="bg-gray-50/50">
+    <CardHeader className="bg-gray-50/50 dark:bg-white/5">
       <CardTitle className="text-lg text-red-600">Danger Zone</CardTitle>
       <CardDescription>Irreversible destructive actions</CardDescription>
     </CardHeader>
@@ -148,7 +148,7 @@ export default function SettingsPage() {
       <div className="flex justify-between items-center">
         <div>
           <h3 className="text-sm font-medium">Delete Company</h3>
-          <p className="text-sm text-gray-500 mt-1">Permanently remove your company and all data.</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Permanently remove your company and all data.</p>
         </div>
         <Button variant="danger">Delete Account</Button>
       </div>
@@ -246,24 +246,24 @@ export default function SettingsPage() {
           }
         }} className="space-y-4 max-w-md">
           <div className="space-y-2">
-            <label className="text-sm font-medium">Full Name</label>
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
             <Input name="name" required placeholder="John Doe" />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium">Email Address</label>
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
             <Input name="email" type="email" required placeholder="john@company.com" />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium">Temporary Password</label>
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Temporary Password</label>
             <Input name="password" required placeholder="Enter a secure password" />
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium">Role</label>
-            <select name="role" required className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
-              <option value="employee">Employee</option>
-              <option value="hr_manager">HR Manager</option>
-              <option value="accountant">Accountant</option>
-              <option value="super_admin">Admin</option>
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Role</label>
+            <select name="role" required className="flex h-10 w-full rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1a1a24] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 dark:text-gray-100 transition-colors">
+              <option value="employee" className="dark:bg-[#1a1a24]">Employee</option>
+              <option value="hr_manager" className="dark:bg-[#1a1a24]">HR Manager</option>
+              <option value="accountant" className="dark:bg-[#1a1a24]">Accountant</option>
+              <option value="super_admin" className="dark:bg-[#1a1a24]">Admin</option>
             </select>
           </div>
           <Button type="submit" className="mt-4">Generate Credentials</Button>
@@ -286,22 +286,22 @@ export default function SettingsPage() {
         }} className="space-y-6 max-w-2xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="text-sm font-medium">Tax Agency Name</label>
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Tax Agency Name</label>
               <Input defaultValue="Federal Board of Revenue (FBR)" placeholder="e.g. IRS, HMRC, FBR" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Tax Registration Number</label>
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Tax Registration Number</label>
               <Input defaultValue="TX-9821004" placeholder="e.g. VAT or NTN number" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Default Tax Rate (%)</label>
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Default Tax Rate (%)</label>
               <Input defaultValue="18" type="number" step="0.01" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-medium">Tax Calculation Method</label>
-              <select className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
-                <option value="exclusive">Exclusive (Added to Subtotal)</option>
-                <option value="inclusive">Inclusive (Included in Price)</option>
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Tax Calculation Method</label>
+              <select className="flex h-10 w-full rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1a1a24] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 dark:text-gray-100 transition-colors">
+                <option value="exclusive" className="dark:bg-[#1a1a24]">Exclusive (Added to Subtotal)</option>
+                <option value="inclusive" className="dark:bg-[#1a1a24]">Inclusive (Included in Price)</option>
               </select>
             </div>
           </div>
