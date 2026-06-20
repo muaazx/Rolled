@@ -74,7 +74,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (loading) return;
 
     if (!user) {
-      if (!pathname.startsWith('/login')) {
+      if (!pathname.startsWith('/login') && !pathname.startsWith('/share')) {
         router.push('/login');
       }
     } else {
@@ -87,7 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       } else {
         const isAllowed = checkRoutePermission(activeRole, pathname);
-        if (!isAllowed) {
+        if (!isAllowed && !pathname.startsWith('/share')) {
           if (activeRole === 'employee') {
             router.push('/salary-slips');
           } else {
