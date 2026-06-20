@@ -1,16 +1,69 @@
 "use client"
 
 import { getCompany } from "@/lib/data"
-import { Bell, Search, User as UserIcon, LogOut } from "lucide-react"
+import { Bell, Search, User as UserIcon, LogOut, FileText, Users, Calculator } from "lucide-react"
 import { useAuth } from "@/components/providers/AuthProvider"
 import { auth } from "@/lib/firebase"
 import { signOut } from "firebase/auth"
 import { useRouter } from "next/navigation"
+import { useState, useEffect, useRef } from "react"
+import { getAuditLogs } from "@/lib/data"
 
 export function Navbar() {
  const { user } = useAuth()
  const company = getCompany()
  const router = useRouter()
+
+ // Notification dropdown state
+ const [isOpen, setIsOpen] = useState(false)
+ const [unreadCount, setUnreadCount] = useState(3)
+ const [notifications, setNotifications] = useState<any[]>([])
+ const dropdownRef = useRef<HTMLDivElement>(null)
+
+ useEffect(() => {
+   // Populate notifications from audit logs
+   const logs = getAuditLogs().slice(0, 5).map((log, index) => {
+     let iconType = 'general'
+     if (log.entityType === 'invoice') iconType = 'invoice'
+     else if (log.entityType === 'employee') iconType = 'employee'
+     else if (log.entityType === 'payroll') iconType = 'payroll'
+
+     return {
+       id: log.id,
+       text: log.description,
+       timestamp: new Date(log.timestamp).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }),
+       unread: index < 3,
+       type: iconType
+     }
+   })
+   setNotifications(logs)
+ }, [])
+
+ // Close dropdown on outside click
+ useEffect(() => {
+   function handleClickOutside(event: MouseEvent) {
+     if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+       setIsOpen(false)
+     }
+   }
+   document.addEventListener("mousedown", handleClickOutside)
+   return () => document.removeEventListener("mousedown", handleClickOutside)
+ }, [])
+
+ const handleMarkAllRead = () => {
+   setNotifications(prev => prev.map(n => ({ ...n, unread: false })))
+   setUnreadCount(0)
+ }
+
+ const handleMarkItemRead = (id: string) => {
+   setNotifications(prev => prev.map(n => {
+     if (n.id === id && n.unread) {
+       setUnreadCount(c => Math.max(0, c - 1))
+       return { ...n, unread: false }
+     }
+     return n
+   }))
+ }
 
  const handleLogout = async () => {
    await signOut(auth)
@@ -38,10 +91,88 @@ export function Navbar() {
  <span>{company.name}</span>
  </div>
 
- <button className="relative text-gray-500 hover:text-gray-900 transition-colors">
- <Bell size={20} />
- <span className="absolute top-0 right-0 w-2 h-2 bg-[#FF7675] rounded-full border-2 border-white"></span>
- </button>
+ <div className="relative" ref={dropdownRef}>
+    <button 
+      onClick={() => setIsOpen(!isOpen)}
+      className="relative text-gray-500 hover:text-gray-900 transition-colors p-1.5 hover:bg-gray-50 rounded-lg"
+    >
+      <Bell size={20} />
+      {unreadCount > 0 && (
+        <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-[#FF7675] rounded-full border-2 border-white animate-pulse"></span>
+      )}
+    </button>
+
+    {isOpen && (
+      <div className="absolute right-0 mt-2 w-80 bg-white border border-[#E0E0EB] rounded-2xl shadow-xl z-50 overflow-hidden py-1 animate-fade-in text-left">
+        {/* Header */}
+        <div className="px-4 py-2.5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+          <div className="flex items-center gap-1.5">
+            <span className="font-bold text-xs text-gray-900">Notifications</span>
+            {unreadCount > 0 && (
+              <span className="bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">
+                {unreadCount}
+              </span>
+            )}
+          </div>
+          {unreadCount > 0 && (
+            <button 
+              onClick={handleMarkAllRead}
+              className="text-[9px] font-bold text-primary hover:text-primary-dark hover:underline transition-colors"
+            >
+              Mark all as read
+            </button>
+          )}
+        </div>
+
+        {/* List */}
+        <div className="max-h-64 overflow-y-auto divide-y divide-gray-50">
+          {notifications.length > 0 ? (
+            notifications.map((notif) => {
+              let NotifIcon = Bell
+              let iconBg = 'bg-gray-100 text-gray-500'
+              if (notif.type === 'invoice') {
+                NotifIcon = FileText
+                iconBg = 'bg-purple-50 text-purple-600'
+              } else if (notif.type === 'employee') {
+                NotifIcon = Users
+                iconBg = 'bg-blue-50 text-blue-600'
+              } else if (notif.type === 'payroll') {
+                NotifIcon = Calculator
+                iconBg = 'bg-green-50 text-green-600'
+              }
+
+              return (
+                <div 
+                  key={notif.id}
+                  onClick={() => {
+                    handleMarkItemRead(notif.id)
+                  }}
+                  className={`px-4 py-3 flex gap-3 items-start transition-colors cursor-pointer ${notif.unread ? 'bg-[#EBE8FC]/10 hover:bg-[#EBE8FC]/20' : 'hover:bg-gray-50'}`}
+                >
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${iconBg}`}>
+                    <NotifIcon size={14} />
+                  </div>
+                  <div className="flex-1 min-w-0 space-y-0.5">
+                    <p className={`text-xs leading-normal ${notif.unread ? 'text-gray-900 font-semibold' : 'text-gray-600'}`}>
+                      {notif.text}
+                    </p>
+                    <span className="text-[9px] text-gray-400 block">{notif.timestamp}</span>
+                  </div>
+                  {notif.unread && (
+                    <span className="w-1.5 h-1.5 bg-red-500 rounded-full mt-1.5 shrink-0"></span>
+                  )}
+                </div>
+              )
+            })
+          ) : (
+            <div className="p-6 text-center text-gray-500 text-xs">
+              No new notifications.
+            </div>
+          )}
+        </div>
+      </div>
+    )}
+  </div>
 
  <div className="flex items-center gap-3 border-l border-[#F0F0F5] pl-6">
  <div className="text-right hidden sm:block">

@@ -30,8 +30,8 @@
 - [ ] Implement Resend email API route
 
 ## Phase 4: Bonus Features & Postponed
-- [ ] Invoice Designer (template builder) - Postponed
-- [ ] Reports & Analytics - Postponed
+- [x] Invoice Designer (template builder)
+- [x] Reports & Analytics
 - [ ] AI Smart-Fill (regex parser)
 - [ ] Payroll Insights (rule-based)
 - [ ] QR Code Sharing
@@ -39,4 +39,4 @@
 
 ## Phase 5: Polish & Verify
 - [ ] Final responsive pass
-- [ ] Build verification
+- [x] Build verification (Verified on 2026-06-20)

@@ -5,7 +5,7 @@ import { getSalarySlips, getMonthName, formatCurrency, getCompany, getEmployees 
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Search, Download, FileText, Eye, Send, X, CheckCircle2 } from "lucide-react"
+import { Search, Download, FileText, Eye, Send, X, CheckCircle2, Printer } from "lucide-react"
 import type { SalarySlip } from "@/lib/data"
 
 export default function SalarySlipsPage() {
@@ -14,7 +14,8 @@ export default function SalarySlipsPage() {
   const company = getCompany()
   const [searchQuery, setSearchQuery] = useState("")
 
-  // Email sending state
+  // Email & View state
+  const [viewingSlip, setViewingSlip] = useState<SalarySlip | null>(null)
   const [sendingSlip, setSendingSlip] = useState<SalarySlip | null>(null)
   const [emailInput, setEmailInput] = useState("")
   const [isSending, setIsSending] = useState(false)
@@ -57,15 +58,16 @@ export default function SalarySlipsPage() {
   }
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <>
+      <div className={`space-y-6 animate-fade-in ${viewingSlip ? 'print:hidden' : ''}`}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-bold text-2xl mb-1">Salary Slips</h1>
           <p className="text-gray-500 text-sm">View, email, and download generated employee slips.</p>
         </div>
-        <Button variant="secondary">
+        <Button variant="secondary" onClick={() => window.print()}>
           <Download size={16} />
-          Export All (ZIP)
+          Export (PDF)
         </Button>
       </div>
 
@@ -115,10 +117,10 @@ export default function SalarySlipsPage() {
                       </td>
                       <td className="text-right">
                         <div className="flex items-center justify-end gap-2">
-                          <Button variant="ghost" className="h-8 w-8 p-0 text-gray-500">
+                          <Button variant="ghost" className="h-8 w-8 p-0 text-gray-500" onClick={() => setViewingSlip(slip)}>
                             <Eye size={16} />
                           </Button>
-                          <Button variant="ghost" className="h-8 w-8 p-0 text-blue-600">
+                          <Button variant="ghost" className="h-8 w-8 p-0 text-blue-600" onClick={() => { setViewingSlip(slip); setTimeout(() => window.print(), 500); }}>
                             <Download size={16} />
                           </Button>
                           <Button
@@ -149,6 +151,7 @@ export default function SalarySlipsPage() {
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {/* Send Salary Slip Modal */}
       {sendingSlip && (
@@ -232,7 +235,83 @@ export default function SalarySlipsPage() {
             )}
           </div>
         </div>
+      )}      {/* View/Print Slip Modal */}
+      {viewingSlip && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 print:p-0 print:block print:relative print:z-auto print:inset-auto">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm print:hidden" onClick={() => setViewingSlip(null)} />
+          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg p-5 max-h-[90vh] overflow-y-auto print:shadow-none print:w-full print:max-w-none print:p-0 print:max-h-none print:overflow-visible">
+            <button
+              onClick={() => setViewingSlip(null)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors print:hidden"
+            >
+              <X size={18} />
+            </button>
+            
+            {/* Slip Content */}
+            <div className="border border-gray-150 p-5 rounded-xl print:border-none print:p-0">
+               <div className="flex justify-between items-start border-b pb-4 mb-4">
+                 <div>
+                   <h2 className="text-xl font-bold text-gray-900 leading-tight">{company.name}</h2>
+                   <p className="text-gray-500 text-xs mt-0.5">Salary Slip - {getMonthName(viewingSlip.month)} {viewingSlip.year}</p>
+                 </div>
+                 <div className="text-right">
+                   <h3 className="font-semibold text-xs text-gray-900">{viewingSlip.snapshot.name}</h3>
+                   <p className="text-[11px] text-gray-500">{viewingSlip.snapshot.designation}</p>
+                   <p className="text-[11px] text-gray-500">{viewingSlip.snapshot.department}</p>
+                 </div>
+               </div>
+
+               <div className="grid grid-cols-2 gap-6 mb-5">
+                 <div>
+                   <h4 className="font-bold text-xs text-gray-900 border-b pb-1.5 mb-2 uppercase tracking-wider">Earnings</h4>
+                   <div className="flex justify-between text-xs py-0.5">
+                     <span className="text-gray-500">Basic Salary</span>
+                     <span className="font-medium text-gray-900">{formatCurrency(viewingSlip.snapshot.basic)}</span>
+                   </div>
+                   {viewingSlip.snapshot.allowances.map((a, i) => (
+                     <div key={i} className="flex justify-between text-xs py-0.5">
+                       <span className="text-gray-500">{a.label}</span>
+                       <span className="font-medium text-gray-900">{formatCurrency(a.amount)}</span>
+                     </div>
+                   ))}
+                   <div className="flex justify-between text-xs py-1.5 mt-1.5 border-t font-bold text-gray-900">
+                     <span>Gross Earnings</span>
+                     <span>{formatCurrency(viewingSlip.grossPay)}</span>
+                   </div>
+                 </div>
+
+                 <div>
+                   <h4 className="font-bold text-xs text-gray-900 border-b pb-1.5 mb-2 uppercase tracking-wider">Deductions</h4>
+                   {viewingSlip.snapshot.deductions.map((d, i) => (
+                     <div key={i} className="flex justify-between text-xs py-0.5">
+                       <span className="text-gray-500">{d.label}</span>
+                       <span className="font-medium text-gray-900">{formatCurrency(d.amount)}</span>
+                     </div>
+                   ))}
+                   <div className="flex justify-between text-xs py-0.5">
+                     <span className="text-gray-500">Income Tax</span>
+                     <span className="font-medium text-gray-900">{formatCurrency(viewingSlip.taxDeduction)}</span>
+                   </div>
+                   <div className="flex justify-between text-xs py-1.5 mt-1.5 border-t font-bold text-red-600">
+                     <span>Total Deductions</span>
+                     <span>{formatCurrency(viewingSlip.totalDeductions + viewingSlip.taxDeduction)}</span>
+                   </div>
+                 </div>
+               </div>
+
+               <div className="bg-green-50 border border-green-100 rounded-xl p-3.5 flex justify-between items-center print:border-t-2 print:border-b-2 print:border-black print:rounded-none">
+                 <span className="font-semibold text-xs text-green-800">Net Pay (Take Home)</span>
+                 <span className="text-xl font-bold text-green-700">{formatCurrency(viewingSlip.netPay)}</span>
+               </div>
+            </div>
+
+            <div className="mt-4 flex justify-end gap-2.5 print:hidden">
+              <Button variant="secondary" className="h-8 text-xs px-3" onClick={() => setViewingSlip(null)}>Close</Button>
+              <Button onClick={() => window.print()} className="h-8 text-xs px-3 gap-1.5"><Printer size={14}/> Print / Save PDF</Button>
+            </div>
+          </div>
+        </div>
       )}
-    </div>
+    </>
   )
 }

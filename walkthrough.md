@@ -24,11 +24,13 @@ The app uses a premium dark/light mode adaptable design system with a purple/blu
 - **Invoices**: 
   - List view with status badges and filters.
   - Create Invoice interface with dynamic line items, real-time total calculations, and template selection.
-- **Employees**: Directory with toggleable Grid/List views and department filtering.
+- **Employees**: Directory with toggleable Grid/List views, department filtering, interactive card/table row actions (edit/delete), a visual **Departments Headcount Directory**, and a full **Add/Edit Employee Modal** featuring dynamic salary structures (allowances and deductions) and banking credentials.
 - **Payroll**: Interface for processing monthly payroll with projected summaries and history tracking.
-- **Salary Slips**: List view of generated slips for employees.
-- **Clients**: Client directory and billing history.
+- **Salary Slips**: List view of generated slips for employees. Added high-fidelity printing and PDF export features specifically targeting individual slips using clean CSS print utilities (`print:hidden` and `print:block`), ensuring page layouts are preserved when printing/downloading single slips.
+- **Clients**: Client directory and billing history, now with fully interactive profile details, editing, deletion, and quick invoice creation.
 - **Settings**: Company profile, tax configuration, and audit logs.
+- **Invoice Designer**: Custom theme builder offering layout selector presets (Minimal, Corporate, Bold, Classic), font selection, and primary/accent brand colors. Features a high-fidelity **Live Invoice Preview** that updates instantly as styles are selected. Settings can be saved to persist locally.
+- **Reports & Analytics**: A multi-tab dashboard (Financial Overview, Payroll & Taxes, Invoice Collections) featuring real-time financial KPI cards (Revenue, Payroll, Taxes, Profit Margin), interactive data charts (Revenue vs. Payroll Bar Chart, Department Cost Breakdown Pie Chart) powered by Recharts, and detailed accounting report lists with interactive search.
 
 ## Testing the Application
 

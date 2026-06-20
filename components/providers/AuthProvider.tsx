@@ -8,41 +8,98 @@ import { useRouter, usePathname } from "next/navigation";
 interface AuthContextType {
   user: User | null;
   loading: boolean;
+  role: string | null;
 }
 
-const AuthContext = createContext<AuthContextType>({ user: null, loading: true });
+const AuthContext = createContext<AuthContextType>({ user: null, loading: true, role: null });
 
 export const useAuth = () => useContext(AuthContext);
 
+function checkRoutePermission(role: string, path: string): boolean {
+  if (role === 'super_admin') return true;
+
+  // Permitted pages and prefix paths
+  const accountantRoutes = ['/dashboard', '/invoices', '/designer', '/clients', '/reports'];
+  const hrRoutes = ['/dashboard', '/employees', '/payroll', '/salary-slips', '/reports'];
+  const employeeRoutes = ['/salary-slips', '/profile'];
+
+  if (role === 'accountant') {
+    return accountantRoutes.some(r => path === r || path.startsWith(r + '/'));
+  }
+  if (role === 'hr_manager' || role === 'hr') {
+    return hrRoutes.some(r => path === r || path.startsWith(r + '/'));
+  }
+  if (role === 'employee') {
+    return employeeRoutes.some(r => path === r || path.startsWith(r + '/'));
+  }
+
+  return false;
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [role, setRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
 
+  // Listen to Firebase Auth state
   useEffect(() => {
     if (!auth) {
       setLoading(false);
       return;
     }
 
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
-      setLoading(false);
-
-      // Routing rules
-      if (!currentUser && !pathname.startsWith('/login')) {
-        router.push('/login');
-      } else if (currentUser && pathname.startsWith('/login')) {
-        router.push('/dashboard');
+      if (currentUser) {
+        try {
+          const idTokenResult = await currentUser.getIdTokenResult(true);
+          setRole((idTokenResult.claims.role as string) || 'employee');
+        } catch (err) {
+          console.error("Error fetching token claims:", err);
+          setRole('employee');
+        }
+      } else {
+        setRole(null);
       }
+      setLoading(false);
     });
 
     return () => unsubscribe && unsubscribe();
-  }, [pathname, router]);
+  }, []);
+
+  // Enforce role-based routing gates
+  useEffect(() => {
+    if (loading) return;
+
+    if (!user) {
+      if (!pathname.startsWith('/login')) {
+        router.push('/login');
+      }
+    } else {
+      const activeRole = role || 'employee';
+      if (pathname.startsWith('/login')) {
+        if (activeRole === 'employee') {
+          router.push('/salary-slips');
+        } else {
+          router.push('/dashboard');
+        }
+      } else {
+        const isAllowed = checkRoutePermission(activeRole, pathname);
+        if (!isAllowed) {
+          if (activeRole === 'employee') {
+            router.push('/salary-slips');
+          } else {
+            router.push('/dashboard');
+          }
+        }
+      }
+    }
+  }, [user, role, loading, pathname, router]);
 
   return (
-    <AuthContext.Provider value={{ user, loading }}>
+    <AuthContext.Provider value={{ user, loading, role }}>
       {/* Always render children so the component tree (and hook counts) stay
           stable between renders. Use opacity instead of visibility so the browser
           still computes real layout dimensions (ResizeObserver reads 0 for

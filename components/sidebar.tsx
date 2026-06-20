@@ -10,29 +10,32 @@ import { LayoutDashboard, FileText, Palette, Users, Building2, Calculator, Recei
  X
 } from "lucide-react"
 import { useState } from "react"
-import { getCurrentUser } from "@/lib/data"
+import { useAuth } from "@/components/providers/AuthProvider"
 
 export function Sidebar() {
  const pathname = usePathname()
  const [isOpen, setIsOpen] = useState(false)
- // Use mock user for now
- const user = getCurrentUser()
- const role = user.role
+ const { role } = useAuth()
+ const activeRole = role || ""
 
  const getLinksForRole = () => {
- const allLinks = [
- { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard, roles: ["super_admin", "accountant", "hr_manager"] },
- { name: "Invoices", href: "/invoices", icon: FileText, roles: ["super_admin", "accountant"] },
- { name: "Designer", href: "/designer", icon: Palette, roles: ["super_admin", "accountant"] },
- { name: "Clients", href: "/clients", icon: Building2, roles: ["super_admin", "accountant"] },
- { name: "Employees", href: "/employees", icon: Users, roles: ["super_admin", "hr_manager"] },
- { name: "Payroll", href: "/payroll", icon: Calculator, roles: ["super_admin", "hr_manager"] },
- { name: "Salary Slips", href: "/salary-slips", icon: Receipt, roles: ["super_admin", "hr_manager", "employee"] },
- { name: "Reports", href: "/reports", icon: PieChart, roles: ["super_admin", "accountant", "hr_manager"] },
- { name: "Settings", href: "/settings", icon: Settings, roles: ["super_admin"] },
- ]
+  if (!activeRole) return []
+  
+  const allLinks = [
+    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard, roles: ["super_admin", "accountant", "hr_manager"] },
+    { name: "Invoices", href: "/invoices", icon: FileText, roles: ["super_admin", "accountant"] },
+    { name: "Designer", href: "/designer", icon: Palette, roles: ["super_admin", "accountant"] },
+    { name: "Clients", href: "/clients", icon: Building2, roles: ["super_admin", "accountant"] },
+    { name: "Employees", href: "/employees", icon: Users, roles: ["super_admin", "hr_manager"] },
+    { name: "Payroll", href: "/payroll", icon: Calculator, roles: ["super_admin", "hr_manager"] },
+    { name: "My salary slips", href: "/salary-slips", icon: Receipt, roles: ["employee"] },
+    { name: "Salary Slips", href: "/salary-slips", icon: Receipt, roles: ["super_admin", "hr_manager"] },
+    { name: "My profile", href: "/profile", icon: Users, roles: ["employee"] },
+    { name: "Reports", href: "/reports", icon: PieChart, roles: ["super_admin", "accountant", "hr_manager"] },
+    { name: "Settings", href: "/settings", icon: Settings, roles: ["super_admin"] },
+  ]
 
- return allLinks.filter(link => link.roles.includes(role))
+  return allLinks.filter(link => link.roles.includes(activeRole))
  }
 
  const links = getLinksForRole()

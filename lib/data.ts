@@ -139,6 +139,7 @@ export interface InvoiceTemplate {
   font: string;
   layout: 'minimal' | 'corporate' | 'bold' | 'classic';
   isDefault: boolean;
+  logo?: string;
 }
 
 export interface AuditLog {
@@ -280,27 +281,81 @@ export function getCurrentUser(): User {
 }
 
 export function getClients(): Client[] {
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem("rolled_clients");
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch (e) {
+        console.error("Error parsing rolled_clients:", e);
+      }
+    }
+    // Seed initial clients if not set
+    localStorage.setItem("rolled_clients", JSON.stringify(CLIENTS));
+  }
   return [...CLIENTS];
 }
 
 export function getClient(id: string): Client | undefined {
-  return CLIENTS.find(c => c.id === id);
+  return getClients().find(c => c.id === id);
+}
+
+export function saveClients(clientsList: Client[]): void {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("rolled_clients", JSON.stringify(clientsList));
+  }
 }
 
 export function getInvoices(): Invoice[] {
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem("rolled_invoices");
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch (e) {
+        console.error("Error parsing rolled_invoices:", e);
+      }
+    }
+    // Seed initial invoices if not set
+    localStorage.setItem("rolled_invoices", JSON.stringify(INVOICES));
+  }
   return [...INVOICES];
 }
 
 export function getInvoice(id: string): Invoice | undefined {
-  return INVOICES.find(i => i.id === id);
+  return getInvoices().find(i => i.id === id);
+}
+
+export function saveInvoices(invoicesList: Invoice[]): void {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("rolled_invoices", JSON.stringify(invoicesList));
+  }
 }
 
 export function getEmployees(): Employee[] {
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem("rolled_employees");
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch (e) {
+        console.error("Error parsing rolled_employees:", e);
+      }
+    }
+    // Seed initial employees if not set
+    localStorage.setItem("rolled_employees", JSON.stringify(EMPLOYEES));
+  }
   return [...EMPLOYEES];
 }
 
 export function getEmployee(id: string): Employee | undefined {
-  return EMPLOYEES.find(e => e.id === id);
+  return getEmployees().find(e => e.id === id);
+}
+
+export function saveEmployees(employeesList: Employee[]): void {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("rolled_employees", JSON.stringify(employeesList));
+  }
 }
 
 export function getPayrollRuns(): PayrollRun[] {
@@ -313,7 +368,25 @@ export function getSalarySlips(payrollRunId?: string): SalarySlip[] {
 }
 
 export function getTemplates(): InvoiceTemplate[] {
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem("rolled_templates");
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch (e) {
+        console.error("Error parsing rolled_templates:", e);
+      }
+    }
+    // Seed initial templates if not set
+    localStorage.setItem("rolled_templates", JSON.stringify(TEMPLATES));
+  }
   return [...TEMPLATES];
+}
+
+export function saveTemplates(templatesList: InvoiceTemplate[]): void {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("rolled_templates", JSON.stringify(templatesList));
+  }
 }
 
 export function getAuditLogs(): AuditLog[] {

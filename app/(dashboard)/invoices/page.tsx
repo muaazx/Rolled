@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { getInvoices, formatCurrency, formatDate, getClients } from "@/lib/data"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -11,16 +11,23 @@ import Link from "next/link"
 import type { Invoice } from "@/lib/data"
 
 export default function InvoicesPage() {
-  const allInvoices = getInvoices()
-  const clients = getClients()
+  const [allInvoices, setAllInvoices] = useState<Invoice[]>([])
+  const [clients, setClients] = useState<any[]>([])
   const [searchQuery, setSearchQuery] = useState("")
   const [statusFilter, setStatusFilter] = useState<string>("ALL")
+  const [mounted, setMounted] = useState(false)
 
   // Email sending state
   const [sendingInvoice, setSendingInvoice] = useState<Invoice | null>(null)
   const [emailInput, setEmailInput] = useState("")
   const [isSending, setIsSending] = useState(false)
   const [sentId, setSentId] = useState<string | null>(null)
+
+  useEffect(() => {
+    setAllInvoices(getInvoices())
+    setClients(getClients())
+    setMounted(true)
+  }, [])
 
   const filteredInvoices = allInvoices.filter(inv => {
     const matchesSearch = inv.clientName.toLowerCase().includes(searchQuery.toLowerCase()) || inv.number.toLowerCase().includes(searchQuery.toLowerCase())
@@ -53,6 +60,8 @@ export default function InvoicesPage() {
       setIsSending(false)
     }
   }
+
+  if (!mounted) return null
 
   return (
     <div className="space-y-6 animate-fade-in">

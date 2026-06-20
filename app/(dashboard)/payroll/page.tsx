@@ -5,8 +5,8 @@ import { getPayrollRuns, getEmployees, formatCurrency, getMonthName } from "@/li
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { CustomSelect } from "@/components/ui/custom-select"
-import {
-  Play, RotateCcw, Download, Info, X, CheckCircle2,
+import Link from "next/link"
+import { Play, RotateCcw, Download, Info, X, CheckCircle2,
   ChevronRight, AlertTriangle, Users, Banknote, Loader2
 } from "lucide-react"
 
@@ -202,9 +202,11 @@ export default function PayrollPage() {
                         <td className="text-right font-medium">{formatCurrency(run.totalExpense)}</td>
                         <td className="text-right">
                           <div className="flex items-center justify-end gap-2">
-                            <Button variant="ghost" className="h-8 px-2 text-xs text-blue-600 gap-1">
-                              <Download size={13} /> Slips
-                            </Button>
+                            <Link href="/salary-slips">
+                              <Button variant="ghost" className="h-8 px-2 text-xs text-blue-600 gap-1">
+                                <Download size={13} /> Slips
+                              </Button>
+                            </Link>
                             <Button
                               variant="ghost"
                               className="h-8 w-8 p-0 text-red-400 hover:text-red-600 hover:bg-red-50"

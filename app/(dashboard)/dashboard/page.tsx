@@ -7,13 +7,20 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import { ArrowUpRight, Clock, FileText, Users, CheckCircle2 } from "lucide-react"
 
 export default function DashboardPage() {
- const stats = getDashboardStats()
- // Defer chart rendering until after the DOM is painted.
- // Recharts' ResizeObserver reads -1 if it runs before the container has real dimensions.
- const [mounted, setMounted] = useState(false)
- useEffect(() => { setMounted(true) }, [])
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
 
- return (
+  if (!mounted) {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
+
+  const stats = getDashboardStats()
+
+  return (
  <div className="space-y-8 animate-fade-in">
  <div>
  <h1 className="font-bold text-2xl mb-2">Welcome back</h1>

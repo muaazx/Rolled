@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getClients, getCompany, formatCurrency, getTemplates } from "@/lib/data"
+import { getClients, getCompany, formatCurrency, getTemplates, getInvoices, saveInvoices } from "@/lib/data"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -27,10 +27,21 @@ export default function CreateInvoicePage() {
  // useEffect only runs client-side, so the real values are set after hydration.
  const [invoiceNum, setInvoiceNum] = useState("")
  const [dueDate, setDueDate] = useState("")
- useEffect(() => {
-  setInvoiceNum(Math.floor(Math.random() * 900 + 100).toString().padStart(3, '0'))
-  setDueDate(new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0])
- }, [])
+ const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setInvoiceNum(Math.floor(Math.random() * 900 + 100).toString().padStart(3, '0'))
+    setDueDate(new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0])
+    
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search)
+      const clientIdParam = params.get("clientId")
+      if (clientIdParam && clients.some(c => c.id === clientIdParam)) {
+        setSelectedClient(clientIdParam)
+      }
+    }
+    setMounted(true)
+  }, [])
 
  // UI state
  const [showPreview, setShowPreview] = useState(false)
@@ -80,6 +91,74 @@ export default function CreateInvoicePage() {
   setTimeout(() => {
    router.push("/invoices")
   }, 1500)
+ }
+  const [isSending, setIsSending] = useState(false)
+  const [sendSuccess, setSendSuccess] = useState(false)
+
+  const handleSendViaEmail = async () => {
+    if (!selectedClient) {
+      alert("Please select a client.")
+      return
+    }
+    setIsSending(true)
+
+    const newInvoice = {
+      id: `inv_${Math.floor(Math.random() * 9000 + 1000)}`,
+      companyId: "comp_001",
+      clientId: selectedClient,
+      clientName: client.name,
+      number: `INV-2025-${invoiceNum}`,
+      items: items.map(item => ({ ...item, total: item.quantity * item.rate })),
+      subtotal,
+      taxRate,
+      taxAmount,
+      total,
+      status: "SENT" as const,
+      dueDate,
+      createdAt: new Date().toISOString(),
+      paidAt: null,
+      sharedToken: `tok_${Math.floor(Math.random() * 900000 + 100000)}`,
+      templateId: selectedTemplate,
+      notes,
+    }
+
+    try {
+      const res = await fetch("/api/send-invoice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          invoice: newInvoice,
+          recipientEmail: client.email,
+        }),
+      })
+
+      const data = await res.json()
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send invoice.")
+      }
+
+      // Save to localStorage
+      const existing = getInvoices()
+      existing.push(newInvoice)
+      saveInvoices(existing)
+
+      setSendSuccess(true)
+      setTimeout(() => {
+        router.push("/invoices")
+      }, 1500)
+    } catch (err: any) {
+      alert("Error sending invoice: " + err.message)
+    } finally {
+      setIsSending(false)
+    }
+  }
+
+ if (!mounted) {
+   return (
+     <div className="flex items-center justify-center min-h-[400px]">
+       <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+     </div>
+   )
  }
 
  return (
@@ -234,9 +313,19 @@ export default function CreateInvoicePage() {
   </div>
 
   <div className="space-y-3 pt-4">
-  <Button className="w-full">
-  <Send size={16} />
-  Send via Email
+  <Button 
+    className="w-full gap-1.5"
+    onClick={handleSendViaEmail}
+    disabled={isSending || sendSuccess}
+  >
+    {isSending ? (
+      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+    ) : sendSuccess ? (
+      <CheckCircle2 size={16} />
+    ) : (
+      <Send size={16} />
+    )}
+    {isSending ? "Sending..." : sendSuccess ? "Sent Successfully!" : "Send via Email"}
   </Button>
   <div className="grid grid-cols-2 gap-3">
   <Button
@@ -276,6 +365,16 @@ export default function CreateInvoicePage() {
    </div>
   )}
 
+  {/* ── Email sent toast ──────────────────────────────────────── */}
+  {sendSuccess && (
+   <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 animate-fade-in">
+    <div className="flex items-center gap-3 bg-gray-900 text-white px-5 py-3 rounded-2xl shadow-2xl text-sm font-medium">
+     <CheckCircle2 size={18} className="text-green-400 shrink-0" />
+     Invoice sent successfully via email! Redirecting…
+    </div>
+   </div>
+  )}
+
   {/* ── Preview Modal ──────────────────────────────────────────── */}
   {showPreview && (
    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
@@ -293,31 +392,37 @@ export default function CreateInvoicePage() {
      </div>
 
      {/* Invoice document */}
-     <div className="p-8 bg-white">
+     <div className="p-6 bg-white">
       {/* Branded header */}
       <div
-       className="rounded-xl p-6 mb-8 flex items-start justify-between"
+       className="rounded-xl p-4 mb-4 flex items-start justify-between"
        style={{ backgroundColor: template.primaryColor + '15', borderLeft: `4px solid ${template.primaryColor}` }}
       >
        <div>
-        <div className="flex items-center gap-2 mb-2">
-         <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: template.primaryColor }}>
-          <FileText size={14} className="text-white" />
+         <div className="flex items-center gap-3 mb-2">
+          {template.logo ? (
+            <div className="bg-white border border-gray-150 p-1 rounded-lg flex items-center justify-center h-8 w-8 shadow-sm overflow-hidden">
+              <img src={template.logo} alt="Company Logo" className="max-h-full max-w-full object-contain" />
+            </div>
+          ) : (
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: template.primaryColor }}>
+              <FileText size={14} className="text-white" />
+            </div>
+          )}
+          <span className="font-extrabold text-lg tracking-tight" style={{ color: template.primaryColor }}>
+           {company.name}
+          </span>
          </div>
-         <span className="font-extrabold text-xl tracking-tight" style={{ color: template.primaryColor }}>
-          {company.name}
-         </span>
-        </div>
         <p className="text-xs text-gray-500">{company.address}</p>
        </div>
        <div className="text-right">
-        <p className="text-2xl font-black tracking-tight text-gray-900">INVOICE</p>
-        <p className="text-sm font-semibold mt-1" style={{ color: template.primaryColor }}>INV-2025-{invoiceNum}</p>
+        <p className="text-xl font-black tracking-tight text-gray-900">INVOICE</p>
+        <p className="text-xs font-semibold mt-1" style={{ color: template.primaryColor }}>INV-2025-{invoiceNum}</p>
        </div>
       </div>
 
       {/* From / To / Due */}
-      <div className="grid grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-3 gap-4 mb-4">
        <div>
         <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">From</p>
         <p className="text-sm font-semibold text-gray-900">{company.name}</p>
@@ -336,23 +441,23 @@ export default function CreateInvoicePage() {
       </div>
 
       {/* Line items table */}
-      <div className="rounded-xl overflow-hidden border border-gray-100 mb-6">
+      <div className="rounded-xl overflow-hidden border border-gray-100 mb-4">
        <table className="w-full text-sm">
         <thead>
          <tr style={{ backgroundColor: template.primaryColor }}>
-          <th className="text-left px-4 py-3 text-white font-semibold text-xs uppercase tracking-wider">Description</th>
-          <th className="text-center px-4 py-3 text-white font-semibold text-xs uppercase tracking-wider w-16">Qty</th>
-          <th className="text-right px-4 py-3 text-white font-semibold text-xs uppercase tracking-wider w-28">Rate</th>
-          <th className="text-right px-4 py-3 text-white font-semibold text-xs uppercase tracking-wider w-28">Amount</th>
+          <th className="text-left px-3 py-2 text-white font-semibold text-xs uppercase tracking-wider">Description</th>
+          <th className="text-center px-3 py-2 text-white font-semibold text-xs uppercase tracking-wider w-16">Qty</th>
+          <th className="text-right px-3 py-2 text-white font-semibold text-xs uppercase tracking-wider w-24">Rate</th>
+          <th className="text-right px-3 py-2 text-white font-semibold text-xs uppercase tracking-wider w-24">Amount</th>
          </tr>
         </thead>
         <tbody>
          {items.map((item, i) => (
           <tr key={item.id} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/60'}>
-           <td className="px-4 py-3 text-gray-800">{item.description || <span className="text-gray-300 italic">No description</span>}</td>
-           <td className="px-4 py-3 text-center text-gray-600">{item.quantity}</td>
-           <td className="px-4 py-3 text-right text-gray-600">{formatCurrency(item.rate)}</td>
-           <td className="px-4 py-3 text-right font-semibold text-gray-900">{formatCurrency(item.quantity * item.rate)}</td>
+           <td className="px-3 py-2 text-gray-800">{item.description || <span className="text-gray-300 italic">No description</span>}</td>
+           <td className="px-3 py-2 text-center text-gray-600">{item.quantity}</td>
+           <td className="px-3 py-2 text-right text-gray-600">{formatCurrency(item.rate)}</td>
+           <td className="px-3 py-2 text-right font-semibold text-gray-900">{formatCurrency(item.quantity * item.rate)}</td>
           </tr>
          ))}
         </tbody>
@@ -360,7 +465,7 @@ export default function CreateInvoicePage() {
       </div>
 
       {/* Totals */}
-      <div className="flex justify-end mb-6">
+      <div className="flex justify-end mb-4">
        <div className="w-64 space-y-2">
         <div className="flex justify-between text-sm text-gray-500">
          <span>Subtotal</span><span className="font-medium text-gray-800">{formatCurrency(subtotal)}</span>
@@ -376,18 +481,18 @@ export default function CreateInvoicePage() {
 
       {/* Notes */}
       {notes && (
-       <div className="border border-gray-100 rounded-xl p-4 bg-gray-50/50">
-        <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">Notes</p>
-        <p className="text-sm text-gray-600">{notes}</p>
+       <div className="border border-gray-100 rounded-xl p-3 bg-gray-50/50">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Notes</p>
+        <p className="text-xs text-gray-600">{notes}</p>
        </div>
       )}
      </div>
 
      {/* Modal footer */}
-     <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50">
-      <Button variant="secondary" onClick={() => setShowPreview(false)}>Close</Button>
-      <Button onClick={handleSaveDraft} disabled={draftSaved} className="gap-1.5">
-       <Save size={15} />{draftSaved ? "Saved!" : "Save Draft"}
+     <div className="px-6 py-3 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50">
+      <Button variant="secondary" size="sm" onClick={() => setShowPreview(false)}>Close</Button>
+      <Button onClick={handleSaveDraft} size="sm" disabled={draftSaved} className="gap-1.5">
+       <Save size={14} />{draftSaved ? "Saved!" : "Save Draft"}
       </Button>
      </div>
     </div>

@@ -261,9 +261,9 @@ export default function SettingsPage() {
             <label className="text-sm font-medium">Role</label>
             <select name="role" required className="flex h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
               <option value="employee">Employee</option>
-              <option value="hr">HR Manager</option>
+              <option value="hr_manager">HR Manager</option>
               <option value="accountant">Accountant</option>
-              <option value="admin">Admin</option>
+              <option value="super_admin">Admin</option>
             </select>
           </div>
           <Button type="submit" className="mt-4">Generate Credentials</Button>
