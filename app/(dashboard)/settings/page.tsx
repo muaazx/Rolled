@@ -94,12 +94,7 @@ export default function SettingsPage() {
  <CardTitle className="text-lg">Company Profile</CardTitle>
  </CardHeader>
  <CardContent className="p-6 space-y-6">
- <div className="flex items-center gap-6">
- <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center text-primary text-2xl font-bold shrink-0">
- {company.name[0]}
- </div>
- </div>
- <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+ <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
  <div className="space-y-2">
  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Company Name</label>
  <Input defaultValue={company.name} />
