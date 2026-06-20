@@ -385,359 +385,359 @@ export default function DesignerPage() {
         <div className="lg:col-span-7 space-y-4">
           <div className="flex justify-between items-center text-xs font-semibold text-gray-400 uppercase tracking-widest px-1">
             <span>Live Document Preview</span>
-            <span className="flex items-center gap-1"><Sparkles size={12} className="text-primary animate-pulse" /> Interactive</span>
-          </div>
+ <span className="flex items-center gap-1"><Sparkles size={12} className="text-primary animate-pulse" /> Interactive</span>
+ </div>
 
-          <Card className="overflow-hidden border-2 border-gray-150/80 shadow-lg bg-gray-100/50 p-6 md:p-8">
-            {/* The paper wrapper */}
-            <div 
-              style={{ fontFamily: getFontFamilyCSS(selectedFont) }}
-              className="bg-white dark:bg-gray-900 text-gray-800 p-8 shadow-md rounded-xl transition-all duration-300 min-h-[600px] border border-gray-200 dark:border-white/10"
-            >
-              
-              {/* Minimal Layout */}
-              {selectedLayout === "minimal" && (
-                <div className="space-y-8">
-                  <div className="flex justify-between items-start border-b pb-6" style={{ borderColor: accentColor }}>
-                    <div>
-                      {logo && (
-                        <div className="mb-3 max-h-16 flex items-center">
-                          <img src={logo} alt="Company Logo" className="max-h-16 w-auto object-contain" />
-                        </div>
-                      )}
-                      <h2 className="text-3xl font-extrabold" style={{ color: primaryColor }}>{company.name}</h2>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{company.address}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{company.phone} • {company.email}</p>
-                    </div>
-                    <div className="text-right">
-                      <span 
-                        className="px-3 py-1 rounded-full text-xs font-semibold"
-                        style={{ backgroundColor: `${accentColor}15`, color: accentColor }}
-                      >
-                        PAID
-                      </span>
-                      <p className="text-sm font-semibold text-gray-900 dark:text-gray-100 mt-4">INV-2025-042</p>
-                      <p className="text-xs text-gray-400 mt-1">Due Date: 14 July 2025</p>
-                    </div>
-                  </div>
+ <Card className="overflow-hidden border-2 border-gray-150/80 shadow-lg bg-gray-100/50 p-6 md:p-8">
+ {/* The paper wrapper */}
+ <div 
+ style={{ fontFamily: getFontFamilyCSS(selectedFont) }}
+ className="bg-white text-gray-800 p-8 shadow-md rounded-xl transition-all duration-300 min-h-[600px] border border-gray-200 "
+ >
+ 
+ {/* Minimal Layout */}
+ {selectedLayout === "minimal" && (
+ <div className="space-y-8">
+ <div className="flex justify-between items-start border-b pb-6" style={{ borderColor: accentColor }}>
+ <div>
+ {logo && (
+ <div className="mb-3 max-h-16 flex items-center">
+ <img src={logo} alt="Company Logo" className="max-h-16 w-auto object-contain" />
+ </div>
+ )}
+ <h2 className="text-3xl font-extrabold" style={{ color: primaryColor }}>{company.name}</h2>
+ <p className="text-sm text-gray-500 mt-1">{company.address}</p>
+ <p className="text-xs text-gray-400 mt-0.5">{company.phone} • {company.email}</p>
+ </div>
+ <div className="text-right">
+ <span 
+ className="px-3 py-1 rounded-full text-xs font-semibold"
+ style={{ backgroundColor: `${accentColor}15`, color: accentColor }}
+ >
+ PAID
+ </span>
+ <p className="text-sm font-semibold text-gray-900 mt-4">INV-2025-042</p>
+ <p className="text-xs text-gray-400 mt-1">Due Date: 14 July 2025</p>
+ </div>
+ </div>
 
-                  <div className="grid grid-cols-2 gap-8 text-sm">
-                    <div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Billed To</span>
-                      <h4 className="font-bold text-gray-900 dark:text-gray-100 mt-1">Acme Corporation</h4>
-                      <p className="text-gray-500 dark:text-gray-400 mt-0.5">15 Main Boulevard, Lahore</p>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Issue Date</span>
-                      <p className="font-medium text-gray-900 dark:text-gray-100 mt-1">20 June 2026</p>
-                    </div>
-                  </div>
+ <div className="grid grid-cols-2 gap-8 text-sm">
+ <div>
+ <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Billed To</span>
+ <h4 className="font-bold text-gray-900 mt-1">Acme Corporation</h4>
+ <p className="text-gray-500 mt-0.5">15 Main Boulevard, Lahore</p>
+ </div>
+ <div className="text-right">
+ <span className="text-xs font-bold uppercase tracking-wider text-gray-400">Issue Date</span>
+ <p className="font-medium text-gray-900 mt-1">20 June 2026</p>
+ </div>
+ </div>
 
-                  <table className="w-full text-sm mt-8 border-collapse">
-                    <thead>
-                      <tr className="border-b" style={{ borderColor: primaryColor }}>
-                        <th className="text-left py-2 font-bold text-gray-400">Item Description</th>
-                        <th className="text-right py-2 font-bold text-gray-400">Qty</th>
-                        <th className="text-right py-2 font-bold text-gray-400">Rate</th>
-                        <th className="text-right py-2 font-bold text-gray-400">Total</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-100">
-                      <tr>
-                        <td className="py-3 font-semibold text-gray-800">UI/UX Design Services</td>
-                        <td className="text-right py-3 text-gray-600 dark:text-gray-400">1</td>
-                        <td className="text-right py-3 text-gray-600 dark:text-gray-400">{formatCurrency(150000)}</td>
-                        <td className="text-right py-3 font-semibold text-gray-900 dark:text-gray-100">{formatCurrency(150000)}</td>
-                      </tr>
-                      <tr>
-                        <td className="py-3 font-semibold text-gray-800">Web Development - Phase 1</td>
-                        <td className="text-right py-3 text-gray-600 dark:text-gray-400">1</td>
-                        <td className="text-right py-3 text-gray-600 dark:text-gray-400">{formatCurrency(450000)}</td>
-                        <td className="text-right py-3 font-semibold text-gray-900 dark:text-gray-100">{formatCurrency(450000)}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+ <table className="w-full text-sm mt-8 border-collapse">
+ <thead>
+ <tr className="border-b" style={{ borderColor: primaryColor }}>
+ <th className="text-left py-2 font-bold text-gray-400">Item Description</th>
+ <th className="text-right py-2 font-bold text-gray-400">Qty</th>
+ <th className="text-right py-2 font-bold text-gray-400">Rate</th>
+ <th className="text-right py-2 font-bold text-gray-400">Total</th>
+ </tr>
+ </thead>
+ <tbody className="divide-y divide-gray-100">
+ <tr>
+ <td className="py-3 font-semibold text-gray-800">UI/UX Design Services</td>
+ <td className="text-right py-3 text-gray-600 ">1</td>
+ <td className="text-right py-3 text-gray-600 ">{formatCurrency(150000)}</td>
+ <td className="text-right py-3 font-semibold text-gray-900 ">{formatCurrency(150000)}</td>
+ </tr>
+ <tr>
+ <td className="py-3 font-semibold text-gray-800">Web Development - Phase 1</td>
+ <td className="text-right py-3 text-gray-600 ">1</td>
+ <td className="text-right py-3 text-gray-600 ">{formatCurrency(450000)}</td>
+ <td className="text-right py-3 font-semibold text-gray-900 ">{formatCurrency(450000)}</td>
+ </tr>
+ </tbody>
+ </table>
 
-                  <div className="flex justify-end pt-6 border-t border-gray-100 dark:border-gray-800">
-                    <div className="w-64 space-y-2 text-sm">
-                      <div className="flex justify-between text-gray-500 dark:text-gray-400">
-                        <span>Subtotal</span>
-                        <span>{formatCurrency(600000)}</span>
-                      </div>
-                      <div className="flex justify-between text-gray-500 dark:text-gray-400">
-                        <span>Tax (5%)</span>
-                        <span>{formatCurrency(300000)}</span>
-                      </div>
-                      <div className="flex justify-between pt-2 border-t font-bold text-base" style={{ color: primaryColor, borderColor: accentColor }}>
-                        <span>Total Due</span>
-                        <span>{formatCurrency(630000)}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+ <div className="flex justify-end pt-6 border-t border-gray-100 ">
+ <div className="w-64 space-y-2 text-sm">
+ <div className="flex justify-between text-gray-500 ">
+ <span>Subtotal</span>
+ <span>{formatCurrency(600000)}</span>
+ </div>
+ <div className="flex justify-between text-gray-500 ">
+ <span>Tax (5%)</span>
+ <span>{formatCurrency(300000)}</span>
+ </div>
+ <div className="flex justify-between pt-2 border-t font-bold text-base" style={{ color: primaryColor, borderColor: accentColor }}>
+ <span>Total Due</span>
+ <span>{formatCurrency(630000)}</span>
+ </div>
+ </div>
+ </div>
+ </div>
+ )}
 
-              {/* Corporate Layout */}
-              {selectedLayout === "corporate" && (
-                <div className="space-y-6">
-                  {/* Banner block top */}
-                  <div className="-mx-8 -mt-8 p-8 flex justify-between items-center text-white" style={{ backgroundColor: primaryColor }}>
-                    <div className="flex items-center gap-4">
-                      {logo && (
-                        <div className="bg-white dark:bg-gray-900 p-1 rounded-lg flex items-center justify-center h-14 w-14 shadow-sm">
-                          <img src={logo} alt="Company Logo" className="max-h-full max-w-full object-contain" />
-                        </div>
-                      )}
-                      <div>
-                        <h2 className="text-3xl font-bold">{company.name}</h2>
-                        <p className="text-xs opacity-80 mt-1">{company.address}</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <h3 className="text-xl font-semibold tracking-wider">INVOICE</h3>
-                      <p className="text-xs opacity-80 mt-1">INV-2025-042</p>
-                    </div>
-                  </div>
+ {/* Corporate Layout */}
+ {selectedLayout === "corporate" && (
+ <div className="space-y-6">
+ {/* Banner block top */}
+ <div className="-mx-8 -mt-8 p-8 flex justify-between items-center text-white" style={{ backgroundColor: primaryColor }}>
+ <div className="flex items-center gap-4">
+ {logo && (
+ <div className="bg-white p-1 rounded-lg flex items-center justify-center h-14 w-14 shadow-sm">
+ <img src={logo} alt="Company Logo" className="max-h-full max-w-full object-contain" />
+ </div>
+ )}
+ <div>
+ <h2 className="text-3xl font-bold">{company.name}</h2>
+ <p className="text-xs opacity-80 mt-1">{company.address}</p>
+ </div>
+ </div>
+ <div className="text-right">
+ <h3 className="text-xl font-semibold tracking-wider">INVOICE</h3>
+ <p className="text-xs opacity-80 mt-1">INV-2025-042</p>
+ </div>
+ </div>
 
-                  <div className="grid grid-cols-2 gap-8 text-sm pt-4">
-                    <div>
-                      <h5 className="font-bold text-gray-400 uppercase tracking-wider text-xs">Prepared For</h5>
-                      <h4 className="font-bold text-gray-900 dark:text-gray-100 mt-2 text-base">Acme Corporation</h4>
-                      <p className="text-gray-500 dark:text-gray-400 mt-0.5">15 Main Boulevard, Lahore</p>
-                      <p className="text-gray-500 dark:text-gray-400 text-xs mt-1">billing@acme.com</p>
-                    </div>
-                    <div className="text-right space-y-1">
-                      <div className="text-xs text-gray-400 uppercase tracking-wider font-bold">Details</div>
-                      <p className="text-sm"><span className="text-gray-400">Date:</span> 20 June 2026</p>
-                      <p className="text-sm"><span className="text-gray-400">Due:</span> 14 July 2025</p>
-                      <div className="pt-2">
-                        <span 
-                          className="px-3 py-1 font-bold text-xs rounded border"
-                          style={{ borderColor: accentColor, color: accentColor }}
-                        >
-                          PAID
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+ <div className="grid grid-cols-2 gap-8 text-sm pt-4">
+ <div>
+ <h5 className="font-bold text-gray-400 uppercase tracking-wider text-xs">Prepared For</h5>
+ <h4 className="font-bold text-gray-900 mt-2 text-base">Acme Corporation</h4>
+ <p className="text-gray-500 mt-0.5">15 Main Boulevard, Lahore</p>
+ <p className="text-gray-500 text-xs mt-1">billing@acme.com</p>
+ </div>
+ <div className="text-right space-y-1">
+ <div className="text-xs text-gray-400 uppercase tracking-wider font-bold">Details</div>
+ <p className="text-sm"><span className="text-gray-400">Date:</span> 20 June 2026</p>
+ <p className="text-sm"><span className="text-gray-400">Due:</span> 14 July 2025</p>
+ <div className="pt-2">
+ <span 
+ className="px-3 py-1 font-bold text-xs rounded border"
+ style={{ borderColor: accentColor, color: accentColor }}
+ >
+ PAID
+ </span>
+ </div>
+ </div>
+ </div>
 
-                  <table className="w-full text-sm mt-8 border-collapse">
-                    <thead>
-                      <tr className="text-white text-xs font-bold uppercase tracking-wider" style={{ backgroundColor: accentColor }}>
-                        <th className="text-left p-2.5">Description</th>
-                        <th className="text-right p-2.5">Qty</th>
-                        <th className="text-right p-2.5">Rate</th>
-                        <th className="text-right p-2.5">Total</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200 border-b border-gray-200 dark:border-white/10">
-                      <tr>
-                        <td className="p-3 font-medium text-gray-800">UI/UX Design Services</td>
-                        <td className="text-right p-3 text-gray-600 dark:text-gray-400">1</td>
-                        <td className="text-right p-3 text-gray-600 dark:text-gray-400">{formatCurrency(150000)}</td>
-                        <td className="text-right p-3 font-semibold text-gray-900 dark:text-gray-100">{formatCurrency(150000)}</td>
-                      </tr>
-                      <tr>
-                        <td className="p-3 font-medium text-gray-800">Web Development - Phase 1</td>
-                        <td className="text-right p-3 text-gray-600 dark:text-gray-400">1</td>
-                        <td className="text-right p-3 text-gray-600 dark:text-gray-400">{formatCurrency(450000)}</td>
-                        <td className="text-right p-3 font-semibold text-gray-900 dark:text-gray-100">{formatCurrency(450000)}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+ <table className="w-full text-sm mt-8 border-collapse">
+ <thead>
+ <tr className="text-white text-xs font-bold uppercase tracking-wider" style={{ backgroundColor: accentColor }}>
+ <th className="text-left p-2.5">Description</th>
+ <th className="text-right p-2.5">Qty</th>
+ <th className="text-right p-2.5">Rate</th>
+ <th className="text-right p-2.5">Total</th>
+ </tr>
+ </thead>
+ <tbody className="divide-y divide-gray-200 border-b border-gray-200 ">
+ <tr>
+ <td className="p-3 font-medium text-gray-800">UI/UX Design Services</td>
+ <td className="text-right p-3 text-gray-600 ">1</td>
+ <td className="text-right p-3 text-gray-600 ">{formatCurrency(150000)}</td>
+ <td className="text-right p-3 font-semibold text-gray-900 ">{formatCurrency(150000)}</td>
+ </tr>
+ <tr>
+ <td className="p-3 font-medium text-gray-800">Web Development - Phase 1</td>
+ <td className="text-right p-3 text-gray-600 ">1</td>
+ <td className="text-right p-3 text-gray-600 ">{formatCurrency(450000)}</td>
+ <td className="text-right p-3 font-semibold text-gray-900 ">{formatCurrency(450000)}</td>
+ </tr>
+ </tbody>
+ </table>
 
-                  <div className="flex justify-end pt-4">
-                    <div className="w-64 space-y-2 text-sm bg-gray-50 dark:bg-[#1a1a24] p-4 rounded-lg border border-gray-150">
-                      <div className="flex justify-between text-gray-500 dark:text-gray-400 text-xs">
-                        <span>Subtotal</span>
-                        <span>{formatCurrency(600000)}</span>
-                      </div>
-                      <div className="flex justify-between text-gray-500 dark:text-gray-400 text-xs">
-                        <span>Tax (5%)</span>
-                        <span>{formatCurrency(30000)}</span>
-                      </div>
-                      <div className="flex justify-between font-bold text-sm pt-2 border-t text-gray-850" style={{ borderColor: primaryColor }}>
-                        <span>Grand Total</span>
-                        <span style={{ color: primaryColor }}>{formatCurrency(630000)}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+ <div className="flex justify-end pt-4">
+ <div className="w-64 space-y-2 text-sm bg-gray-50 p-4 rounded-lg border border-gray-150">
+ <div className="flex justify-between text-gray-500 text-xs">
+ <span>Subtotal</span>
+ <span>{formatCurrency(600000)}</span>
+ </div>
+ <div className="flex justify-between text-gray-500 text-xs">
+ <span>Tax (5%)</span>
+ <span>{formatCurrency(30000)}</span>
+ </div>
+ <div className="flex justify-between font-bold text-sm pt-2 border-t text-gray-850" style={{ borderColor: primaryColor }}>
+ <span>Grand Total</span>
+ <span style={{ color: primaryColor }}>{formatCurrency(630000)}</span>
+ </div>
+ </div>
+ </div>
+ </div>
+ )}
 
-              {/* Bold Layout */}
-              {selectedLayout === "bold" && (
-                <div className="space-y-6">
-                  {/* Accent Line top */}
-                  <div className="h-2 -mx-8 -mt-8" style={{ backgroundColor: primaryColor }} />
-                  
-                  <div className="flex justify-between items-start pt-4">
-                    <div className="flex items-center gap-4">
-                      {logo && (
-                        <div className="border border-gray-200 dark:border-white/10 p-1.5 rounded-lg flex items-center justify-center h-14 w-14 bg-white dark:bg-gray-900 shadow-xs">
-                          <img src={logo} alt="Company Logo" className="max-h-full max-w-full object-contain" />
-                        </div>
-                      )}
-                      <div>
-                        <h2 className="text-4xl font-black uppercase tracking-tight" style={{ color: primaryColor }}>{company.name}</h2>
-                        <p className="text-xs text-gray-400 mt-1">42 Blue Area, Islamabad</p>
-                      </div>
-                    </div>
-                    <div className="bg-gray-100 p-4 rounded-xl text-right">
-                      <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">Invoice Balance</div>
-                      <div className="text-2xl font-black mt-1" style={{ color: primaryColor }}>{formatCurrency(630000)}</div>
-                    </div>
-                  </div>
+ {/* Bold Layout */}
+ {selectedLayout === "bold" && (
+ <div className="space-y-6">
+ {/* Accent Line top */}
+ <div className="h-2 -mx-8 -mt-8" style={{ backgroundColor: primaryColor }} />
+ 
+ <div className="flex justify-between items-start pt-4">
+ <div className="flex items-center gap-4">
+ {logo && (
+ <div className="border border-gray-200 p-1.5 rounded-lg flex items-center justify-center h-14 w-14 bg-white shadow-xs">
+ <img src={logo} alt="Company Logo" className="max-h-full max-w-full object-contain" />
+ </div>
+ )}
+ <div>
+ <h2 className="text-4xl font-black uppercase tracking-tight" style={{ color: primaryColor }}>{company.name}</h2>
+ <p className="text-xs text-gray-400 mt-1">42 Blue Area, Islamabad</p>
+ </div>
+ </div>
+ <div className="bg-gray-100 p-4 rounded-xl text-right">
+ <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">Invoice Balance</div>
+ <div className="text-2xl font-black mt-1" style={{ color: primaryColor }}>{formatCurrency(630000)}</div>
+ </div>
+ </div>
 
-                  <div className="border-y border-gray-150 py-4 grid grid-cols-3 gap-4 text-xs">
-                    <div>
-                      <div className="font-bold text-gray-450 uppercase">Client Info</div>
-                      <div className="font-bold text-gray-800 mt-1">Acme Corporation</div>
-                      <div className="text-gray-500 dark:text-gray-400">15 Main Boulevard, Lahore</div>
-                    </div>
-                    <div>
-                      <div className="font-bold text-gray-450 uppercase">Invoice Number</div>
-                      <div className="font-bold text-gray-800 mt-1">INV-2025-042</div>
-                      <div className="text-gray-500 dark:text-gray-400">Issued: 20 June 2026</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="font-bold text-gray-450 uppercase">Status</div>
-                      <div className="mt-1">
-                        <span 
-                          className="inline-block px-3 py-1 font-black rounded-lg text-[10px] text-white"
-                          style={{ backgroundColor: accentColor }}
-                        >
-                          PAID IN FULL
-                        </span>
-                      </div>
-                      <div className="text-gray-500 dark:text-gray-400 mt-1">Due: 14 July 2025</div>
-                    </div>
-                  </div>
+ <div className="border-y border-gray-150 py-4 grid grid-cols-3 gap-4 text-xs">
+ <div>
+ <div className="font-bold text-gray-450 uppercase">Client Info</div>
+ <div className="font-bold text-gray-800 mt-1">Acme Corporation</div>
+ <div className="text-gray-500 ">15 Main Boulevard, Lahore</div>
+ </div>
+ <div>
+ <div className="font-bold text-gray-450 uppercase">Invoice Number</div>
+ <div className="font-bold text-gray-800 mt-1">INV-2025-042</div>
+ <div className="text-gray-500 ">Issued: 20 June 2026</div>
+ </div>
+ <div className="text-right">
+ <div className="font-bold text-gray-450 uppercase">Status</div>
+ <div className="mt-1">
+ <span 
+ className="inline-block px-3 py-1 font-black rounded-lg text-[10px] text-white"
+ style={{ backgroundColor: accentColor }}
+ >
+ PAID IN FULL
+ </span>
+ </div>
+ <div className="text-gray-500 mt-1">Due: 14 July 2025</div>
+ </div>
+ </div>
 
-                  <table className="w-full text-sm mt-4">
-                    <thead>
-                      <tr className="border-b-2 text-left" style={{ borderColor: primaryColor }}>
-                        <th className="py-2.5 font-bold">Services & Items</th>
-                        <th className="py-2.5 text-right font-bold">Qty</th>
-                        <th className="py-2.5 text-right font-bold">Rate</th>
-                        <th className="py-2.5 text-right font-bold">Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-100">
-                      <tr>
-                        <td className="py-3 font-semibold">UI/UX Design Services</td>
-                        <td className="text-right py-3">1</td>
-                        <td className="text-right py-3">{formatCurrency(150000)}</td>
-                        <td className="text-right py-3 font-bold" style={{ color: primaryColor }}>{formatCurrency(150000)}</td>
-                      </tr>
-                      <tr>
-                        <td className="py-3 font-semibold">Web Development - Phase 1</td>
-                        <td className="text-right py-3">1</td>
-                        <td className="text-right py-3">{formatCurrency(450000)}</td>
-                        <td className="text-right py-3 font-bold" style={{ color: primaryColor }}>{formatCurrency(450000)}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+ <table className="w-full text-sm mt-4">
+ <thead>
+ <tr className="border-b-2 text-left" style={{ borderColor: primaryColor }}>
+ <th className="py-2.5 font-bold">Services & Items</th>
+ <th className="py-2.5 text-right font-bold">Qty</th>
+ <th className="py-2.5 text-right font-bold">Rate</th>
+ <th className="py-2.5 text-right font-bold">Amount</th>
+ </tr>
+ </thead>
+ <tbody className="divide-y divide-gray-100">
+ <tr>
+ <td className="py-3 font-semibold">UI/UX Design Services</td>
+ <td className="text-right py-3">1</td>
+ <td className="text-right py-3">{formatCurrency(150000)}</td>
+ <td className="text-right py-3 font-bold" style={{ color: primaryColor }}>{formatCurrency(150000)}</td>
+ </tr>
+ <tr>
+ <td className="py-3 font-semibold">Web Development - Phase 1</td>
+ <td className="text-right py-3">1</td>
+ <td className="text-right py-3">{formatCurrency(450000)}</td>
+ <td className="text-right py-3 font-bold" style={{ color: primaryColor }}>{formatCurrency(450000)}</td>
+ </tr>
+ </tbody>
+ </table>
 
-                  <div className="flex justify-between items-end pt-6 border-t border-gray-150">
-                    <p className="text-xs text-gray-400 italic max-w-sm">Thank you for working with us! Please send payments to bank details provided on settings.</p>
-                    <div className="w-56 space-y-1.5 text-xs text-right">
-                      <div className="flex justify-between">
-                        <span className="text-gray-400">Subtotal</span>
-                        <span className="font-semibold">{formatCurrency(600000)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-400">Tax (5%)</span>
-                        <span className="font-semibold">{formatCurrency(30000)}</span>
-                      </div>
-                      <div className="flex justify-between pt-2 border-t-2 font-black text-sm" style={{ color: primaryColor, borderColor: primaryColor }}>
-                        <span>TOTAL PAID</span>
-                        <span>{formatCurrency(630000)}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+ <div className="flex justify-between items-end pt-6 border-t border-gray-150">
+ <p className="text-xs text-gray-400 italic max-w-sm">Thank you for working with us! Please send payments to bank details provided on settings.</p>
+ <div className="w-56 space-y-1.5 text-xs text-right">
+ <div className="flex justify-between">
+ <span className="text-gray-400">Subtotal</span>
+ <span className="font-semibold">{formatCurrency(600000)}</span>
+ </div>
+ <div className="flex justify-between">
+ <span className="text-gray-400">Tax (5%)</span>
+ <span className="font-semibold">{formatCurrency(30000)}</span>
+ </div>
+ <div className="flex justify-between pt-2 border-t-2 font-black text-sm" style={{ color: primaryColor, borderColor: primaryColor }}>
+ <span>TOTAL PAID</span>
+ <span>{formatCurrency(630000)}</span>
+ </div>
+ </div>
+ </div>
+ </div>
+ )}
 
-              {/* Classic Layout */}
-              {selectedLayout === "classic" && (
-                <div className="space-y-6">
-                  {/* Decorative Double Borders */}
-                  <div className="text-center pb-4 border-b border-double border-gray-300">
-                    {logo && (
-                      <div className="flex justify-center mb-3">
-                        <div className="h-16 w-16 flex items-center justify-center bg-white dark:bg-gray-900 rounded p-1 border">
-                          <img src={logo} alt="Company Logo" className="max-h-full max-w-full object-contain" />
-                        </div>
-                      </div>
-                    )}
-                    <h2 className="text-3xl font-serif tracking-wide" style={{ color: primaryColor }}>{company.name}</h2>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 italic mt-1">{company.address} • Phone: {company.phone}</p>
-                  </div>
+ {/* Classic Layout */}
+ {selectedLayout === "classic" && (
+ <div className="space-y-6">
+ {/* Decorative Double Borders */}
+ <div className="text-center pb-4 border-b border-double border-gray-300">
+ {logo && (
+ <div className="flex justify-center mb-3">
+ <div className="h-16 w-16 flex items-center justify-center bg-white rounded p-1 border">
+ <img src={logo} alt="Company Logo" className="max-h-full max-w-full object-contain" />
+ </div>
+ </div>
+ )}
+ <h2 className="text-3xl font-serif tracking-wide" style={{ color: primaryColor }}>{company.name}</h2>
+ <p className="text-xs text-gray-500 italic mt-1">{company.address} • Phone: {company.phone}</p>
+ </div>
 
-                  <div className="flex justify-between text-sm py-2">
-                    <div>
-                      <h4 className="font-bold text-gray-700 dark:text-gray-300 italic">Bill To:</h4>
-                      <p className="font-bold text-gray-900 dark:text-gray-100 mt-1">Acme Corporation</p>
-                      <p className="text-gray-500 dark:text-gray-400">{company.address}</p>
-                    </div>
-                    <div className="text-right space-y-1">
-                      <p><span className="font-bold text-gray-600 dark:text-gray-400">Invoice Reference:</span> INV-2025-042</p>
-                      <p><span className="font-bold text-gray-600 dark:text-gray-400">Issue Date:</span> 20 June 2026</p>
-                      <p><span className="font-bold text-gray-600 dark:text-gray-400">Due Date:</span> 14 July 2025</p>
-                      <p className="font-bold text-green-700 uppercase tracking-widest pt-2">★ Status: PAID ★</p>
-                    </div>
-                  </div>
+ <div className="flex justify-between text-sm py-2">
+ <div>
+ <h4 className="font-bold text-gray-700 italic">Bill To:</h4>
+ <p className="font-bold text-gray-900 mt-1">Acme Corporation</p>
+ <p className="text-gray-500 ">{company.address}</p>
+ </div>
+ <div className="text-right space-y-1">
+ <p><span className="font-bold text-gray-600 ">Invoice Reference:</span> INV-2025-042</p>
+ <p><span className="font-bold text-gray-600 ">Issue Date:</span> 20 June 2026</p>
+ <p><span className="font-bold text-gray-600 ">Due Date:</span> 14 July 2025</p>
+ <p className="font-bold text-green-700 uppercase tracking-widest pt-2">★ Status: PAID ★</p>
+ </div>
+ </div>
 
-                  <table className="w-full text-sm mt-4 border-t border-b border-gray-300">
-                    <thead>
-                      <tr className="border-b text-left text-gray-700 dark:text-gray-300 font-serif">
-                        <th className="py-2 italic">Itemized Description</th>
-                        <th className="py-2 text-right">Quantity</th>
-                        <th className="py-2 text-right">Unit Price</th>
-                        <th className="py-2 text-right">Total Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-150">
-                      <tr>
-                        <td className="py-3 font-medium text-gray-800">UI/UX Design Services</td>
-                        <td className="text-right py-3">1</td>
-                        <td className="text-right py-3">{formatCurrency(150000)}</td>
-                        <td className="text-right py-3 font-medium text-gray-900 dark:text-gray-100">{formatCurrency(150000)}</td>
-                      </tr>
-                      <tr>
-                        <td className="py-3 font-medium text-gray-800">Web Development - Phase 1</td>
-                        <td className="text-right py-3">1</td>
-                        <td className="text-right py-3">{formatCurrency(450000)}</td>
-                        <td className="text-right py-3 font-medium text-gray-900 dark:text-gray-100">{formatCurrency(450000)}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+ <table className="w-full text-sm mt-4 border-t border-b border-gray-300">
+ <thead>
+ <tr className="border-b text-left text-gray-700 font-serif">
+ <th className="py-2 italic">Itemized Description</th>
+ <th className="py-2 text-right">Quantity</th>
+ <th className="py-2 text-right">Unit Price</th>
+ <th className="py-2 text-right">Total Amount</th>
+ </tr>
+ </thead>
+ <tbody className="divide-y divide-gray-150">
+ <tr>
+ <td className="py-3 font-medium text-gray-800">UI/UX Design Services</td>
+ <td className="text-right py-3">1</td>
+ <td className="text-right py-3">{formatCurrency(150000)}</td>
+ <td className="text-right py-3 font-medium text-gray-900 ">{formatCurrency(150000)}</td>
+ </tr>
+ <tr>
+ <td className="py-3 font-medium text-gray-800">Web Development - Phase 1</td>
+ <td className="text-right py-3">1</td>
+ <td className="text-right py-3">{formatCurrency(450000)}</td>
+ <td className="text-right py-3 font-medium text-gray-900 ">{formatCurrency(450000)}</td>
+ </tr>
+ </tbody>
+ </table>
 
-                  <div className="flex justify-end pt-4">
-                    <div className="w-64 space-y-2 text-sm border-double border-t-4 pt-2" style={{ borderColor: accentColor }}>
-                      <div className="flex justify-between">
-                        <span className="italic">Invoice Subtotal</span>
-                        <span>{formatCurrency(600000)}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="italic">Taxation (5.0%)</span>
-                        <span>{formatCurrency(30000)}</span>
-                      </div>
-                      <div className="flex justify-between font-bold text-base border-t border-b border-gray-300 py-1" style={{ color: primaryColor }}>
-                        <span>Total Balance Due</span>
-                        <span>{formatCurrency(630000)}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+ <div className="flex justify-end pt-4">
+ <div className="w-64 space-y-2 text-sm border-double border-t-4 pt-2" style={{ borderColor: accentColor }}>
+ <div className="flex justify-between">
+ <span className="italic">Invoice Subtotal</span>
+ <span>{formatCurrency(600000)}</span>
+ </div>
+ <div className="flex justify-between">
+ <span className="italic">Taxation (5.0%)</span>
+ <span>{formatCurrency(30000)}</span>
+ </div>
+ <div className="flex justify-between font-bold text-base border-t border-b border-gray-300 py-1" style={{ color: primaryColor }}>
+ <span>Total Balance Due</span>
+ <span>{formatCurrency(630000)}</span>
+ </div>
+ </div>
+ </div>
+ </div>
+ )}
 
-            </div>
-          </Card>
-        </div>
+ </div>
+ </Card>
+ </div>
 
-      </div>
-    </div>
-  )
+ </div>
+ </div>
+ )
 }

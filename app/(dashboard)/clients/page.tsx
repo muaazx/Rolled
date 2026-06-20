@@ -185,7 +185,7 @@ export default function ClientsPage() {
                         {formatDate(client.createdAt)}
                       </td>
                       <td className="text-right">
-                        <div className="inline-flex items-center justify-center min-w-6 px-2 h-6 rounded-full bg-gray-100 text-xs font-medium">
+                        <div className="inline-flex items-center justify-center min-w-6 px-2 h-6 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-xs font-medium">
                           {client.invoiceCount}
                         </div>
                       </td>
