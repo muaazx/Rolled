@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { getAuditLogs, getCompany, formatDateTime, getClients, getInvoices, getEmployees, getPayrollRuns, getSalarySlips } from "@/lib/data"
+import { getAuditLogs, getCompany, saveCompany, formatDateTime, getClients, getInvoices, getEmployees, getPayrollRuns, getSalarySlips } from "@/lib/data"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -94,14 +94,30 @@ export default function SettingsPage() {
  <CardTitle className="text-lg">Company Profile</CardTitle>
  </CardHeader>
  <CardContent className="p-6 space-y-6">
+ <form onSubmit={(e) => {
+   e.preventDefault();
+   const target = e.target as any;
+   const updatedCompany = {
+     ...company,
+     name: target.companyName.value,
+     currency: target.currency.value,
+     email: target.email.value,
+     phone: target.phone.value,
+     address: target.address.value,
+   };
+   saveCompany(updatedCompany);
+   alert("Company profile updated successfully!");
+   // Refresh the page to update the company name across the dashboard
+   window.location.reload();
+ }}>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
  <div className="space-y-2">
  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Company Name</label>
- <Input defaultValue={company.name} />
+ <Input name="companyName" defaultValue={company.name} required />
  </div>
  <div className="space-y-2">
  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Base Currency</label>
- <select className="flex h-10 w-full rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 dark:bg-[#1a1a24] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 dark:text-gray-100 transition-colors">
+ <select name="currency" defaultValue={company.currency} className="flex h-10 w-full rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 dark:bg-[#1a1a24] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 dark:text-gray-100 transition-colors">
  <option value="PKR" className="dark:bg-[#1a1a24]">PKR - Pakistani Rupee</option>
  <option value="USD" className="dark:bg-[#1a1a24]">USD - US Dollar</option>
  <option value="EUR" className="dark:bg-[#1a1a24]">EUR - Euro</option>
@@ -110,23 +126,24 @@ export default function SettingsPage() {
  </div>
  <div className="space-y-2">
  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
- <Input defaultValue={company.email} type="email" />
+ <Input name="email" defaultValue={company.email} type="email" required />
  </div>
  <div className="space-y-2">
  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Phone Number</label>
- <Input defaultValue={company.phone} />
+ <Input name="phone" defaultValue={company.phone} />
  </div>
  <div className="space-y-2 md:col-span-2">
  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Business Address</label>
- <Input defaultValue={company.address} />
+ <Input name="address" defaultValue={company.address} />
  </div>
  </div>
 
  <div className="pt-4 flex justify-end">
- <Button>
+ <Button type="submit">
  <Save size={16} className="mr-2" /> Save Changes
  </Button>
  </div>
+ </form>
  </CardContent>
  </Card>
 

@@ -273,7 +273,24 @@ const AUDIT_LOGS: AuditLog[] = [
 // ── DATA STORE ──
 
 export function getCompany(): Company {
-  return COMPANY;
+  if (typeof window !== "undefined") {
+    const stored = localStorage.getItem("rolled_company");
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch (e) {
+        console.error("Error parsing rolled_company:", e);
+      }
+    }
+    localStorage.setItem("rolled_company", JSON.stringify(COMPANY));
+  }
+  return { ...COMPANY };
+}
+
+export function saveCompany(company: Company): void {
+  if (typeof window !== "undefined") {
+    localStorage.setItem("rolled_company", JSON.stringify(company));
+  }
 }
 
 export function getCurrentUser(): User {
