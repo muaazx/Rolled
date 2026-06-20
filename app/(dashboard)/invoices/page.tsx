@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search, Plus, FileText, Filter, Send, X, CheckCircle2 } from "lucide-react"
 import Link from "next/link"
+import QRCode from "react-qr-code"
 import type { Invoice } from "@/lib/data"
 
 export default function InvoicesPage() {
@@ -257,6 +258,18 @@ export default function InvoicesPage() {
                       </>
                     )}
                   </Button>
+
+                  <div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800">
+                    <div className="flex flex-col items-center">
+                      <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">Scan to view and pay</h4>
+                      <div className="p-3 bg-white rounded-xl shadow-sm border border-gray-200">
+                        <QRCode value={`https://rolled.app/invoice/${sendingInvoice.sharedToken}`} size={120} />
+                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-3 text-center max-w-[250px]">
+                        Point your camera at the QR code to instantly open this invoice on your mobile device.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </>
             )}

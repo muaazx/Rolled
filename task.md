@@ -34,7 +34,7 @@
 - [x] Reports & Analytics
 - [ ] AI Smart-Fill (regex parser)
 - [ ] Payroll Insights (rule-based)
-- [ ] QR Code Sharing
+- [x] QR Code Sharing
 - [ ] Multi-company switcher
 
 ## Phase 5: Polish & Verify
