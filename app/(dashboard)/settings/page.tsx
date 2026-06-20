@@ -94,20 +94,9 @@ export default function SettingsPage() {
  <CardTitle className="text-lg">Company Profile</CardTitle>
  </CardHeader>
  <CardContent className="p-6 space-y-6">
- <div className="flex items-start gap-6">
+ <div className="flex items-center gap-6">
  <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center text-primary text-2xl font-bold shrink-0">
  {company.name[0]}
- </div>
- <div className="flex flex-col justify-center h-20">
- <Button variant="secondary" className="mb-2 w-fit" onClick={() => document.getElementById('logo-upload')?.click()}>
- Upload Logo
- </Button>
- <input type="file" id="logo-upload" className="hidden" accept="image/*" onChange={(e) => {
-   if(e.target.files && e.target.files[0]) {
-     alert("Logo uploaded successfully (mocked for demo)!");
-   }
- }} />
- <p className="text-xs text-gray-500 dark:text-gray-400">Recommended size: 400x400px. Max 2MB.</p>
  </div>
  </div>
  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
