@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Search, Plus, FileText, Filter, Send, X, CheckCircle2 } from "lucide-react"
 import Link from "next/link"
 import QRCode from "react-qr-code"
+import { createPortal } from "react-dom"
 import type { Invoice } from "@/lib/data"
 
 export default function InvoicesPage() {
@@ -186,8 +187,8 @@ export default function InvoicesPage() {
       </Card>
 
       {/* Send Invoice Modal */}
-      {sendingInvoice && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {sendingInvoice && mounted && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setSendingInvoice(null)} />
           <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md p-6 animate-fade-in max-h-[90vh] overflow-y-auto hide-scrollbar">
             <button
@@ -274,7 +275,8 @@ export default function InvoicesPage() {
               </>
             )}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   )
