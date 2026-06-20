@@ -69,24 +69,24 @@ export default function LoginPage() {
             <circle cx="28" cy="28" r="4" fill="white"/>
             <circle cx="12" cy="12" r="4" fill="white"/>
           </svg>
-          <span className="text-4xl font-extrabold tracking-tight text-[#1C1C2E]" style={{ fontFamily: 'var(--font-nunito)' }}>Rolled</span>
+          <span className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100" style={{ fontFamily: 'var(--font-nunito)' }}>Rolled</span>
         </div>
-        <h1 className="text-2xl font-bold text-[#1C1C2E] tracking-tight">Welcome back</h1>
-        <p className="text-[#6B6B80] mt-2">Log in to your account to continue</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 tracking-tight">Welcome back</h1>
+        <p className="text-gray-500 dark:text-gray-400 mt-2">Log in to your account to continue</p>
       </div>
 
       <Card className="glass-card">
         <CardHeader className="space-y-1 pb-4">
-          <div className="flex bg-[#F8F9FB] p-1 rounded-xl mb-4 border border-[#E0E0EB]">
+          <div className="flex bg-gray-50 dark:bg-white/5 p-1 rounded-xl mb-4 border border-gray-200 dark:border-white/10">
             <button 
               onClick={() => setRole('staff')}
-              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-2 ${role === 'staff' ? 'bg-white text-primary shadow-sm' : 'text-[#6B6B80] hover:text-[#1C1C2E]'}`}
+              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-2 ${role === 'staff' ? 'bg-white dark:bg-white/10 text-primary shadow-sm' : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'}`}
             >
               <User size={16} /> Staff Login
             </button>
             <button 
               onClick={() => setRole('admin')}
-              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-2 ${role === 'admin' ? 'bg-white text-primary shadow-sm' : 'text-[#6B6B80] hover:text-[#1C1C2E]'}`}
+              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-2 ${role === 'admin' ? 'bg-white dark:bg-white/10 text-primary shadow-sm' : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100'}`}
             >
               <Building size={16} /> Admin Login
             </button>
@@ -101,19 +101,19 @@ export default function LoginPage() {
           
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-[#1C1C2E]">Email address</label>
-              <Input type="email" placeholder={role === 'admin' ? "admin@company.com" : "name@company.com"} required value={email} onChange={e => setEmail(e.target.value)} className="bg-[#F8F9FB] border-[#E0E0EB] focus:bg-white" />
+              <label className="text-sm font-semibold text-gray-900 dark:text-gray-100">Email address</label>
+              <Input type="email" placeholder={role === 'admin' ? "admin@company.com" : "name@company.com"} required value={email} onChange={e => setEmail(e.target.value)} className="bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:bg-white dark:focus:bg-[#1a1a24]" />
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-sm font-semibold text-[#1C1C2E]">Password</label>
+                <label className="text-sm font-semibold text-gray-900 dark:text-gray-100">Password</label>
                 {role === 'staff' && (
                   <Link href="#" className="text-sm font-medium text-primary hover:text-primary-dark transition-colors">
                     Forgot password?
                   </Link>
                 )}
               </div>
-              <Input type="password" placeholder="••••••••" required value={password} onChange={e => setPassword(e.target.value)} className="bg-[#F8F9FB] border-[#E0E0EB] focus:bg-white" />
+              <Input type="password" placeholder="••••••••" required value={password} onChange={e => setPassword(e.target.value)} className="bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:bg-white dark:focus:bg-[#1a1a24]" />
             </div>
             <Button type="submit" disabled={isLoading} className="w-full h-12 text-base rounded-xl mt-6">
               {isLoading ? "Signing in..." : "Sign in"}

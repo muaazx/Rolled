@@ -1,7 +1,7 @@
 "use client"
 
 import { getCompany } from "@/lib/data"
-import { Bell, Search, User as UserIcon, LogOut, FileText, Users, Calculator } from "lucide-react"
+import { Bell, Search, User as UserIcon, LogOut, FileText, Users, Calculator, Calendar } from "lucide-react"
 import { useAuth } from "@/components/providers/AuthProvider"
 import { auth } from "@/lib/firebase"
 import { signOut } from "firebase/auth"
@@ -73,41 +73,40 @@ export function Navbar() {
  if (!user) return null;
 
  return (
- <header className="h-20 shadow-sm bg-white/80 backdrop-blur-md flex items-center justify-between px-8 sticky top-0 z-30">
+ <header className="h-20 shadow-sm bg-white/80 dark:bg-gray-900/80 backdrop-blur-md flex items-center justify-between px-8 sticky top-0 z-30">
  <div className="flex items-center gap-4 hidden md:flex">
- <div className="relative">
- <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
- <input type="text" placeholder="Search invoices, employees..." className="pl-10 pr-4 py-2 text-sm rounded-xl border border-[#E0E0EB] bg-[#F8F9FB] focus:outline-none focus:ring-2 focus:ring-primary focus:ransparent text-[#1C1C2E] w-72 transition-all"
- />
- </div>
+      <div className="relative flex-1 max-w-md hidden md:block">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+        <input type="text" placeholder="Search invoices, employees..." className="pl-10 pr-4 py-2 text-sm rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-transparent text-gray-900 dark:text-gray-100 w-72 transition-all" />
+      </div>
  </div>
  {/* Mobile placeholder to push things right */}
  <div className="md:hidden"></div>
 
  <div className="flex items-center gap-6">
  {/* Company switch indicator */}
- <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#EBE8FC] text-[#8A4FFF] rounded-lg text-sm font-semibold">
- <BuildingIcon />
- <span>{company.name}</span>
+ <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary rounded-lg text-sm font-semibold">
+   <Calendar size={16} />
+   {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
  </div>
 
  <div className="relative" ref={dropdownRef}>
     <button 
       onClick={() => setIsOpen(!isOpen)}
-      className="relative text-gray-500 hover:text-gray-900 transition-colors p-1.5 hover:bg-gray-50 rounded-lg"
+      className="relative text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors p-1.5 hover:bg-gray-50 dark:hover:bg-white/5 rounded-lg"
     >
       <Bell size={20} />
       {unreadCount > 0 && (
-        <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-[#FF7675] rounded-full border-2 border-white animate-pulse"></span>
+        <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white dark:border-gray-900 animate-pulse"></span>
       )}
     </button>
 
     {isOpen && (
-      <div className="absolute right-0 mt-2 w-80 bg-white border border-[#E0E0EB] rounded-2xl shadow-xl z-50 overflow-hidden py-1 animate-fade-in text-left">
+      <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl z-50 overflow-hidden py-1 animate-fade-in text-left">
         {/* Header */}
-        <div className="px-4 py-2.5 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+        <div className="px-4 py-2.5 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
           <div className="flex items-center gap-1.5">
-            <span className="font-bold text-xs text-gray-900">Notifications</span>
+            <span className="font-bold text-xs text-gray-900 dark:text-gray-100">Notifications</span>
             {unreadCount > 0 && (
               <span className="bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">
                 {unreadCount}
@@ -117,7 +116,7 @@ export function Navbar() {
           {unreadCount > 0 && (
             <button 
               onClick={handleMarkAllRead}
-              className="text-[9px] font-bold text-primary hover:text-primary-dark hover:underline transition-colors"
+              className="text-[9px] font-bold text-primary hover:underline transition-colors"
             >
               Mark all as read
             </button>
@@ -125,20 +124,20 @@ export function Navbar() {
         </div>
 
         {/* List */}
-        <div className="max-h-64 overflow-y-auto divide-y divide-gray-50">
+        <div className="max-h-64 overflow-y-auto divide-y divide-gray-50 dark:divide-gray-800">
           {notifications.length > 0 ? (
             notifications.map((notif) => {
               let NotifIcon = Bell
-              let iconBg = 'bg-gray-100 text-gray-500'
+              let iconBg = 'bg-gray-100 text-gray-500 dark:bg-gray-800'
               if (notif.type === 'invoice') {
                 NotifIcon = FileText
-                iconBg = 'bg-purple-50 text-purple-600'
+                iconBg = 'bg-purple-50 text-purple-600 dark:bg-purple-900/20'
               } else if (notif.type === 'employee') {
                 NotifIcon = Users
-                iconBg = 'bg-blue-50 text-blue-600'
+                iconBg = 'bg-blue-50 text-blue-600 dark:bg-blue-900/20'
               } else if (notif.type === 'payroll') {
                 NotifIcon = Calculator
-                iconBg = 'bg-green-50 text-green-600'
+                iconBg = 'bg-green-50 text-green-600 dark:bg-green-900/20'
               }
 
               return (
@@ -147,13 +146,13 @@ export function Navbar() {
                   onClick={() => {
                     handleMarkItemRead(notif.id)
                   }}
-                  className={`px-4 py-3 flex gap-3 items-start transition-colors cursor-pointer ${notif.unread ? 'bg-[#EBE8FC]/10 hover:bg-[#EBE8FC]/20' : 'hover:bg-gray-50'}`}
+                  className={`px-4 py-3 flex gap-3 items-start transition-colors cursor-pointer ${notif.unread ? 'bg-primary/5 hover:bg-primary/10' : 'hover:bg-gray-50 dark:hover:bg-white/5'}`}
                 >
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${iconBg}`}>
                     <NotifIcon size={14} />
                   </div>
                   <div className="flex-1 min-w-0 space-y-0.5">
-                    <p className={`text-xs leading-normal ${notif.unread ? 'text-gray-900 font-semibold' : 'text-gray-600'}`}>
+                    <p className={`text-xs leading-normal ${notif.unread ? 'text-gray-900 dark:text-gray-100 font-semibold' : 'text-gray-600 dark:text-gray-400'}`}>
                       {notif.text}
                     </p>
                     <span className="text-[9px] text-gray-400 block">{notif.timestamp}</span>
