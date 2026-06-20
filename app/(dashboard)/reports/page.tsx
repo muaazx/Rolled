@@ -190,7 +190,7 @@ export default function ReportsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-bold text-2xl mb-1">Reports & Analytics</h1>
-          <p className="text-gray-500 text-sm">Comprehensive visual financial insights and accounting reports.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">Comprehensive visual financial insights and accounting reports.</p>
         </div>
         <Button onClick={handleExport} disabled={exporting} className="gap-1.5 h-9 text-xs">
           <Download size={14} />
@@ -205,7 +205,7 @@ export default function ReportsPage() {
           className={`px-4 py-2.5 text-sm font-semibold border-b-2 transition-all ${
             activeTab === "overview"
               ? "border-primary text-primary"
-              : "border-transparent text-gray-500 hover:text-gray-900"
+              : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100"
           }`}
         >
           <div className="flex items-center gap-2">
@@ -217,7 +217,7 @@ export default function ReportsPage() {
           className={`px-4 py-2.5 text-sm font-semibold border-b-2 transition-all ${
             activeTab === "payroll"
               ? "border-primary text-primary"
-              : "border-transparent text-gray-500 hover:text-gray-900"
+              : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100"
           }`}
         >
           <div className="flex items-center gap-2">
@@ -229,7 +229,7 @@ export default function ReportsPage() {
           className={`px-4 py-2.5 text-sm font-semibold border-b-2 transition-all ${
             activeTab === "invoices"
               ? "border-primary text-primary"
-              : "border-transparent text-gray-500 hover:text-gray-900"
+              : "border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:text-gray-100"
           }`}
         >
           <div className="flex items-center gap-2">
@@ -244,7 +244,7 @@ export default function ReportsPage() {
           <CardContent className="p-5 flex justify-between items-center">
             <div className="space-y-1">
               <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Total Revenue</span>
-              <h3 className="text-2xl font-bold text-gray-900">{formatCurrency(totalRevenue)}</h3>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{formatCurrency(totalRevenue)}</h3>
               <div className="flex items-center text-[10px] text-green-600 font-bold gap-0.5">
                 <ArrowUpRight size={12} /> +12.4% vs last period
               </div>
@@ -259,7 +259,7 @@ export default function ReportsPage() {
           <CardContent className="p-5 flex justify-between items-center">
             <div className="space-y-1">
               <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Payroll Expense</span>
-              <h3 className="text-2xl font-bold text-gray-900">{formatCurrency(totalPayroll)}</h3>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{formatCurrency(totalPayroll)}</h3>
               <div className="flex items-center text-[10px] text-red-500 font-bold gap-0.5">
                 <ArrowDownRight size={12} /> +6.1% headcount growth
               </div>
@@ -274,8 +274,8 @@ export default function ReportsPage() {
           <CardContent className="p-5 flex justify-between items-center">
             <div className="space-y-1">
               <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Tax Withheld/Collected</span>
-              <h3 className="text-2xl font-bold text-gray-900">{formatCurrency(totalTaxWithheld)}</h3>
-              <div className="flex items-center text-[10px] text-gray-500 font-bold">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{formatCurrency(totalTaxWithheld)}</h3>
+              <div className="flex items-center text-[10px] text-gray-500 dark:text-gray-400 font-bold">
                 Invoice & salary deductions
               </div>
             </div>
@@ -372,11 +372,11 @@ export default function ReportsPage() {
               <div className="space-y-1.5 mt-auto">
                 {deptData.map((d, i) => (
                   <div key={i} className="flex justify-between items-center text-xs">
-                    <div className="flex items-center gap-1.5 font-medium text-gray-700">
+                    <div className="flex items-center gap-1.5 font-medium text-gray-700 dark:text-gray-300">
                       <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: d.color }} />
                       {d.name}
                     </div>
-                    <span className="font-semibold text-gray-900">{formatCurrency(d.value)}</span>
+                    <span className="font-semibold text-gray-900 dark:text-gray-100">{formatCurrency(d.value)}</span>
                   </div>
                 ))}
               </div>
@@ -388,7 +388,7 @@ export default function ReportsPage() {
       {/* TAB 2: PAYROLL & TAXES REPORT */}
       {activeTab === "payroll" && (
         <Card className="shadow-sm">
-          <CardHeader className="pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-4">
+          <CardHeader className="pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 dark:border-gray-800 pb-4">
             <div>
               <CardTitle className="text-lg font-bold">Salary Slip Expense Report</CardTitle>
               <p className="text-xs text-gray-400 mt-0.5">Detailed breakdown of gross pay, deductions, tax liabilities, and take-home net salary.</p>
@@ -397,7 +397,7 @@ export default function ReportsPage() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
               <Input
                 placeholder="Search employee or period..."
-                className="pl-9 h-8.5 text-xs bg-gray-50/50"
+                className="pl-9 h-8.5 text-xs bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50"
                 value={payrollSearch}
                 onChange={e => setPayrollSearch(e.target.value)}
               />
@@ -421,18 +421,18 @@ export default function ReportsPage() {
                   {filteredSlips.length > 0 ? (
                     filteredSlips.map((slip) => (
                       <tr key={slip.id}>
-                        <td className="font-medium text-gray-900">{slip.employeeName}</td>
+                        <td className="font-medium text-gray-900 dark:text-gray-100">{slip.employeeName}</td>
                         <td className="text-gray-650">{getMonthName(slip.month)} {slip.year}</td>
                         <td className="text-right font-medium">{formatCurrency(slip.grossPay)}</td>
-                        <td className="text-right text-gray-500">{formatCurrency(slip.totalAllowances)}</td>
-                        <td className="text-right text-gray-500">{formatCurrency(slip.totalDeductions)}</td>
+                        <td className="text-right text-gray-500 dark:text-gray-400">{formatCurrency(slip.totalAllowances)}</td>
+                        <td className="text-right text-gray-500 dark:text-gray-400">{formatCurrency(slip.totalDeductions)}</td>
                         <td className="text-right text-red-600 font-medium">{formatCurrency(slip.taxDeduction)}</td>
                         <td className="text-right text-green-700 font-semibold">{formatCurrency(slip.netPay)}</td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={7} className="px-6 py-12 text-center text-gray-500">
+                      <td colSpan={7} className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                         <div className="flex flex-col items-center justify-center">
                           <Users size={36} className="text-gray-300 mb-2" />
                           <p className="font-medium">No payroll slips records match search criteria.</p>
@@ -450,7 +450,7 @@ export default function ReportsPage() {
       {/* TAB 3: INVOICE COLLECTIONS */}
       {activeTab === "invoices" && (
         <Card className="shadow-sm">
-          <CardHeader className="pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-4">
+          <CardHeader className="pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 dark:border-gray-800 pb-4">
             <div>
               <CardTitle className="text-lg font-bold">Billing Revenue Collections</CardTitle>
               <p className="text-xs text-gray-400 mt-0.5">Details on sales, collected amounts, taxes, and current payment status of all client invoices.</p>
@@ -459,7 +459,7 @@ export default function ReportsPage() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
               <Input
                 placeholder="Search invoice or client..."
-                className="pl-9 h-8.5 text-xs bg-gray-50/50"
+                className="pl-9 h-8.5 text-xs bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50"
                 value={invoiceSearch}
                 onChange={e => setInvoiceSearch(e.target.value)}
               />
@@ -482,17 +482,17 @@ export default function ReportsPage() {
                   {filteredInvoices.length > 0 ? (
                     filteredInvoices.map((inv) => (
                       <tr key={inv.id}>
-                        <td className="font-semibold text-gray-900">{inv.number}</td>
-                        <td className="text-gray-700">{inv.clientName}</td>
+                        <td className="font-semibold text-gray-900 dark:text-gray-100">{inv.number}</td>
+                        <td className="text-gray-700 dark:text-gray-300">{inv.clientName}</td>
                         <td>{formatCurrency(inv.subtotal)}</td>
-                        <td className="text-right text-gray-500">{formatCurrency(inv.taxAmount)}</td>
+                        <td className="text-right text-gray-500 dark:text-gray-400">{formatCurrency(inv.taxAmount)}</td>
                         <td className="text-right font-medium text-primary">{formatCurrency(inv.total)}</td>
                         <td className="text-center">
                           <span className={`inline-block px-2.5 py-1 text-[10px] font-bold rounded-full ${
                             inv.status === "PAID" ? "bg-green-100 text-green-700" :
                             inv.status === "SENT" ? "bg-blue-100 text-blue-700" :
                             inv.status === "OVERDUE" ? "bg-red-100 text-red-700" :
-                            "bg-gray-100 text-gray-600"
+                            "bg-gray-100 text-gray-600 dark:text-gray-400"
                           }`}>
                             {inv.status}
                           </span>
@@ -501,7 +501,7 @@ export default function ReportsPage() {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                      <td colSpan={6} className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                         <div className="flex flex-col items-center justify-center">
                           <DollarSign size={36} className="text-gray-300 mb-2" />
                           <p className="font-medium">No invoice billing records match search criteria.</p>

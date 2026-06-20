@@ -63,7 +63,7 @@ export default function SalarySlipsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-bold text-2xl mb-1">Salary Slips</h1>
-          <p className="text-gray-500 text-sm">View, email, and download generated employee slips.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">View, email, and download generated employee slips.</p>
         </div>
         <Button variant="secondary" onClick={() => window.print()}>
           <Download size={16} />
@@ -100,11 +100,11 @@ export default function SalarySlipsPage() {
                   filteredSlips.map((slip) => (
                     <tr key={slip.id}>
                       <td>
-                        <div className="font-medium text-gray-900 ">{slip.employeeName}</div>
-                        <div className="text-xs text-gray-500">{slip.snapshot.designation}</div>
+                        <div className="font-medium text-gray-900 dark:text-gray-100 ">{slip.employeeName}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">{slip.snapshot.designation}</div>
                       </td>
                       <td>
-                        <div className="font-medium text-gray-900 ">{getMonthName(slip.month)} {slip.year}</div>
+                        <div className="font-medium text-gray-900 dark:text-gray-100 ">{getMonthName(slip.month)} {slip.year}</div>
                       </td>
                       <td>
                         {formatCurrency(slip.grossPay)}
@@ -117,7 +117,7 @@ export default function SalarySlipsPage() {
                       </td>
                       <td className="text-right">
                         <div className="flex items-center justify-end gap-2">
-                          <Button variant="ghost" className="h-8 w-8 p-0 text-gray-500" onClick={() => setViewingSlip(slip)}>
+                          <Button variant="ghost" className="h-8 w-8 p-0 text-gray-500 dark:text-gray-400" onClick={() => setViewingSlip(slip)}>
                             <Eye size={16} />
                           </Button>
                           <Button variant="ghost" className="h-8 w-8 p-0 text-blue-600" onClick={() => { setViewingSlip(slip); setTimeout(() => window.print(), 500); }}>
@@ -137,10 +137,10 @@ export default function SalarySlipsPage() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                    <td colSpan={6} className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                       <div className="flex flex-col items-center justify-center">
                         <FileText size={48} className="text-gray-300 mb-4" />
-                        <p className="text-base font-medium text-gray-900 mb-1">No slips found</p>
+                        <p className="text-base font-medium text-gray-900 dark:text-gray-100 mb-1">No slips found</p>
                         <p className="text-sm">We couldn't find any salary slips matching your search.</p>
                       </div>
                     </td>
@@ -157,10 +157,10 @@ export default function SalarySlipsPage() {
       {sendingSlip && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setSendingSlip(null)} />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 animate-fade-in">
+          <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md p-6 animate-fade-in">
             <button
               onClick={() => setSendingSlip(null)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:text-gray-300 transition-colors"
             >
               <X size={20} />
             </button>
@@ -170,8 +170,8 @@ export default function SalarySlipsPage() {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle2 size={32} className="text-green-600" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Salary Slip Sent!</h3>
-                <p className="text-sm text-gray-500 mb-6">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">Salary Slip Sent!</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
                   <strong>{sendingSlip.employeeName}'s</strong> slip for <strong>{getMonthName(sendingSlip.month)} {sendingSlip.year}</strong> has been emailed to <strong>{emailInput}</strong>.
                 </p>
                 <Button onClick={() => setSendingSlip(null)} className="w-full">Done</Button>
@@ -183,34 +183,34 @@ export default function SalarySlipsPage() {
                     <div className="w-9 h-9 bg-primary/10 rounded-lg flex items-center justify-center">
                       <Send size={18} className="text-primary" />
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900">Email Salary Slip</h3>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">Email Salary Slip</h3>
                   </div>
-                  <p className="text-sm text-gray-500 ml-12">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 ml-12">
                     Send the salary slip directly to the employee.
                   </p>
                 </div>
 
                 <div className="space-y-4">
-                  <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 flex justify-between text-sm">
-                    <span className="text-gray-500">Employee</span>
-                    <span className="font-semibold text-gray-900">{sendingSlip.employeeName}</span>
+                  <div className="p-3 bg-gray-50 dark:bg-[#1a1a24] rounded-xl border border-gray-100 dark:border-gray-800 flex justify-between text-sm">
+                    <span className="text-gray-500 dark:text-gray-400">Employee</span>
+                    <span className="font-semibold text-gray-900 dark:text-gray-100">{sendingSlip.employeeName}</span>
                   </div>
-                  <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 flex justify-between text-sm">
-                    <span className="text-gray-500">Period</span>
-                    <span className="font-semibold text-gray-900">{getMonthName(sendingSlip.month)} {sendingSlip.year}</span>
+                  <div className="p-3 bg-gray-50 dark:bg-[#1a1a24] rounded-xl border border-gray-100 dark:border-gray-800 flex justify-between text-sm">
+                    <span className="text-gray-500 dark:text-gray-400">Period</span>
+                    <span className="font-semibold text-gray-900 dark:text-gray-100">{getMonthName(sendingSlip.month)} {sendingSlip.year}</span>
                   </div>
-                  <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 flex justify-between text-sm">
-                    <span className="text-gray-500">Net Pay</span>
+                  <div className="p-3 bg-gray-50 dark:bg-[#1a1a24] rounded-xl border border-gray-100 dark:border-gray-800 flex justify-between text-sm">
+                    <span className="text-gray-500 dark:text-gray-400">Net Pay</span>
                     <span className="font-semibold text-green-700">{formatCurrency(sendingSlip.netPay)}</span>
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-gray-700">Recipient Email</label>
+                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Recipient Email</label>
                     <Input
                       type="email"
                       placeholder="employee@company.com"
                       value={emailInput}
                       onChange={e => setEmailInput(e.target.value)}
-                      className="bg-gray-50 border-gray-200 focus:bg-white"
+                      className="bg-gray-50 dark:bg-[#1a1a24] border-gray-200 dark:border-white/10 focus:bg-white dark:bg-gray-900"
                     />
                   </div>
                   <Button
@@ -239,10 +239,10 @@ export default function SalarySlipsPage() {
       {viewingSlip && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 print:p-0 print:block print:relative print:z-auto print:inset-auto">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm print:hidden" onClick={() => setViewingSlip(null)} />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg p-5 max-h-[90vh] overflow-y-auto print:shadow-none print:w-full print:max-w-none print:p-0 print:max-h-none print:overflow-visible">
+          <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-lg p-5 max-h-[90vh] overflow-y-auto print:shadow-none print:w-full print:max-w-none print:p-0 print:max-h-none print:overflow-visible">
             <button
               onClick={() => setViewingSlip(null)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors print:hidden"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:text-gray-300 transition-colors print:hidden"
             >
               <X size={18} />
             </button>
@@ -251,46 +251,46 @@ export default function SalarySlipsPage() {
             <div className="border border-gray-150 p-5 rounded-xl print:border-none print:p-0">
                <div className="flex justify-between items-start border-b pb-4 mb-4">
                  <div>
-                   <h2 className="text-xl font-bold text-gray-900 leading-tight">{company.name}</h2>
-                   <p className="text-gray-500 text-xs mt-0.5">Salary Slip - {getMonthName(viewingSlip.month)} {viewingSlip.year}</p>
+                   <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 leading-tight">{company.name}</h2>
+                   <p className="text-gray-500 dark:text-gray-400 text-xs mt-0.5">Salary Slip - {getMonthName(viewingSlip.month)} {viewingSlip.year}</p>
                  </div>
                  <div className="text-right">
-                   <h3 className="font-semibold text-xs text-gray-900">{viewingSlip.snapshot.name}</h3>
-                   <p className="text-[11px] text-gray-500">{viewingSlip.snapshot.designation}</p>
-                   <p className="text-[11px] text-gray-500">{viewingSlip.snapshot.department}</p>
+                   <h3 className="font-semibold text-xs text-gray-900 dark:text-gray-100">{viewingSlip.snapshot.name}</h3>
+                   <p className="text-[11px] text-gray-500 dark:text-gray-400">{viewingSlip.snapshot.designation}</p>
+                   <p className="text-[11px] text-gray-500 dark:text-gray-400">{viewingSlip.snapshot.department}</p>
                  </div>
                </div>
 
                <div className="grid grid-cols-2 gap-6 mb-5">
                  <div>
-                   <h4 className="font-bold text-xs text-gray-900 border-b pb-1.5 mb-2 uppercase tracking-wider">Earnings</h4>
+                   <h4 className="font-bold text-xs text-gray-900 dark:text-gray-100 border-b pb-1.5 mb-2 uppercase tracking-wider">Earnings</h4>
                    <div className="flex justify-between text-xs py-0.5">
-                     <span className="text-gray-500">Basic Salary</span>
-                     <span className="font-medium text-gray-900">{formatCurrency(viewingSlip.snapshot.basic)}</span>
+                     <span className="text-gray-500 dark:text-gray-400">Basic Salary</span>
+                     <span className="font-medium text-gray-900 dark:text-gray-100">{formatCurrency(viewingSlip.snapshot.basic)}</span>
                    </div>
                    {viewingSlip.snapshot.allowances.map((a, i) => (
                      <div key={i} className="flex justify-between text-xs py-0.5">
-                       <span className="text-gray-500">{a.label}</span>
-                       <span className="font-medium text-gray-900">{formatCurrency(a.amount)}</span>
+                       <span className="text-gray-500 dark:text-gray-400">{a.label}</span>
+                       <span className="font-medium text-gray-900 dark:text-gray-100">{formatCurrency(a.amount)}</span>
                      </div>
                    ))}
-                   <div className="flex justify-between text-xs py-1.5 mt-1.5 border-t font-bold text-gray-900">
+                   <div className="flex justify-between text-xs py-1.5 mt-1.5 border-t font-bold text-gray-900 dark:text-gray-100">
                      <span>Gross Earnings</span>
                      <span>{formatCurrency(viewingSlip.grossPay)}</span>
                    </div>
                  </div>
 
                  <div>
-                   <h4 className="font-bold text-xs text-gray-900 border-b pb-1.5 mb-2 uppercase tracking-wider">Deductions</h4>
+                   <h4 className="font-bold text-xs text-gray-900 dark:text-gray-100 border-b pb-1.5 mb-2 uppercase tracking-wider">Deductions</h4>
                    {viewingSlip.snapshot.deductions.map((d, i) => (
                      <div key={i} className="flex justify-between text-xs py-0.5">
-                       <span className="text-gray-500">{d.label}</span>
-                       <span className="font-medium text-gray-900">{formatCurrency(d.amount)}</span>
+                       <span className="text-gray-500 dark:text-gray-400">{d.label}</span>
+                       <span className="font-medium text-gray-900 dark:text-gray-100">{formatCurrency(d.amount)}</span>
                      </div>
                    ))}
                    <div className="flex justify-between text-xs py-0.5">
-                     <span className="text-gray-500">Income Tax</span>
-                     <span className="font-medium text-gray-900">{formatCurrency(viewingSlip.taxDeduction)}</span>
+                     <span className="text-gray-500 dark:text-gray-400">Income Tax</span>
+                     <span className="font-medium text-gray-900 dark:text-gray-100">{formatCurrency(viewingSlip.taxDeduction)}</span>
                    </div>
                    <div className="flex justify-between text-xs py-1.5 mt-1.5 border-t font-bold text-red-600">
                      <span>Total Deductions</span>

@@ -24,7 +24,7 @@ export default function DashboardPage() {
  <div className="space-y-8 animate-fade-in">
  <div>
  <h1 className="font-bold text-2xl mb-2">Welcome back</h1>
- <p className="text-gray-500">Here's what's happening with your finances today.</p>
+ <p className="text-gray-500 dark:text-gray-400">Here's what's happening with your finances today.</p>
  </div>
 
  {/* Metrics Row */}
@@ -33,7 +33,7 @@ export default function DashboardPage() {
  <CardContent className="p-6">
  <div className="flex justify-between items-start">
  <div>
- <p className="text-sm font-medium text-gray-500 mb-1">Total Invoiced</p>
+ <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Total Invoiced</p>
  <h3 className="text-2xl font-bold">{formatCurrency(stats.totalInvoiced)}</h3>
  </div>
  <div className="p-3 bg-primary/10 rounded-lg text-primary">
@@ -42,7 +42,7 @@ export default function DashboardPage() {
  </div>
  <div className="mt-4 flex items-center text-sm">
  <span className="text-green-500 flex items-center"><ArrowUpRight size={16} className="mr-1"/> +12.5%</span>
- <span className="text-gray-500 ml-2">from last month</span>
+ <span className="text-gray-500 dark:text-gray-400 ml-2">from last month</span>
  </div>
  </CardContent>
  </Card>
@@ -51,7 +51,7 @@ export default function DashboardPage() {
  <CardContent className="p-6">
  <div className="flex justify-between items-start">
  <div>
- <p className="text-sm font-medium text-gray-500 mb-1">Collected</p>
+ <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Collected</p>
  <h3 className="text-2xl font-bold">{formatCurrency(stats.totalCollected)}</h3>
  </div>
  <div className="p-3 bg-green-500/10 rounded-lg text-green-600">
@@ -60,7 +60,7 @@ export default function DashboardPage() {
  </div>
  <div className="mt-4 flex items-center text-sm">
  <span className="text-green-500 flex items-center"><ArrowUpRight size={16} className="mr-1"/> +8.2%</span>
- <span className="text-gray-500 ml-2">from last month</span>
+ <span className="text-gray-500 dark:text-gray-400 ml-2">from last month</span>
  </div>
  </CardContent>
  </Card>
@@ -69,14 +69,14 @@ export default function DashboardPage() {
  <CardContent className="p-6">
  <div className="flex justify-between items-start">
  <div>
- <p className="text-sm font-medium text-gray-500 mb-1">Outstanding</p>
+ <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Outstanding</p>
  <h3 className="text-2xl font-bold">{formatCurrency(stats.outstanding)}</h3>
  </div>
  <div className="p-3 bg-amber-500/10 rounded-lg text-amber-600">
  <Clock size={20} />
  </div>
  </div>
- <div className="mt-4 flex items-center text-sm text-gray-500">
+ <div className="mt-4 flex items-center text-sm text-gray-500 dark:text-gray-400">
  {stats.overdueCount} overdue invoices
  </div>
  </CardContent>
@@ -86,14 +86,14 @@ export default function DashboardPage() {
  <CardContent className="p-6">
  <div className="flex justify-between items-start">
  <div>
- <p className="text-sm font-medium text-gray-500 mb-1">Active Employees</p>
+ <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Active Employees</p>
  <h3 className="text-2xl font-bold">{stats.activeEmployees}</h3>
  </div>
  <div className="p-3 bg-primary/10 rounded-lg text-primary">
  <Users size={20} />
  </div>
  </div>
- <div className="mt-4 flex items-center text-sm text-gray-500">
+ <div className="mt-4 flex items-center text-sm text-gray-500 dark:text-gray-400">
  Total headcount: {stats.totalHeadcount}
  </div>
  </CardContent>

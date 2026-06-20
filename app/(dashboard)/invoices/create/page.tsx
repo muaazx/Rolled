@@ -166,29 +166,29 @@ export default function CreateInvoicePage() {
   <div className="space-y-6 animate-fade-in max-w-5xl mx-auto">
   <div className="flex items-center gap-4">
   <Link href="/invoices">
-  <Button variant="ghost" className="p-2 w-10 h-10 rounded-full bg-white ">
+  <Button variant="ghost" className="p-2 w-10 h-10 rounded-full bg-white dark:bg-gray-900 ">
   <ArrowLeft size={18} />
   </Button>
   </Link>
   <div>
   <h1 className="font-bold text-2xl mb-1">Create Invoice</h1>
-  <p className="text-gray-500 text-sm">Draft a new invoice and send to your client.</p>
+  <p className="text-gray-500 dark:text-gray-400 text-sm">Draft a new invoice and send to your client.</p>
   </div>
   </div>
 
   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
   <div className="lg:col-span-2 space-y-6">
   <Card>
-  <CardHeader className=" bg-gray-50/50 pb-4">
+  <CardHeader className=" bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50 pb-4">
   <CardTitle className="text-lg flex items-center justify-between">
   <span>Invoice Details</span>
-  <span className="text-sm font-normal text-gray-500">INV-2025-{invoiceNum}</span>
+  <span className="text-sm font-normal text-gray-500 dark:text-gray-400">INV-2025-{invoiceNum}</span>
   </CardTitle>
   </CardHeader>
   <CardContent className="p-6 space-y-6">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
   <div className="space-y-2">
-  <label className="text-sm font-medium text-gray-700 ">Client</label>
+  <label className="text-sm font-medium text-gray-700 dark:text-gray-300 ">Client</label>
   <select className="flex h-10 w-full rounded-md bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ransparent "
   value={selectedClient}
   onChange={(e) => setSelectedClient(e.target.value)}
@@ -199,14 +199,14 @@ export default function CreateInvoicePage() {
   </select>
   </div>
   <div className="space-y-2">
-  <label className="text-sm font-medium text-gray-700 ">Due Date</label>
+  <label className="text-sm font-medium text-gray-700 dark:text-gray-300 ">Due Date</label>
   <Input type="date" value={dueDate} onChange={e => setDueDate(e.target.value)} />
   </div>
   </div>
 
   <div>
   <div className="flex items-center justify-between mb-2 pb-2">
-  <label className="text-sm font-medium text-gray-700 ">Line Items</label>
+  <label className="text-sm font-medium text-gray-700 dark:text-gray-300 ">Line Items</label>
   </div>
   <div className="space-y-3 mt-4">
   {items.map((item) => (
@@ -248,7 +248,7 @@ export default function CreateInvoicePage() {
 
   <div className=" pt-6">
   <div className="space-y-2">
-  <label className="text-sm font-medium text-gray-700 ">Notes / Terms</label>
+  <label className="text-sm font-medium text-gray-700 dark:text-gray-300 ">Notes / Terms</label>
   <textarea className="flex w-full rounded-md bg-transparent px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ransparent min-h-[100px] resize-none"
   placeholder="Thank you for your business!"
   value={notes}
@@ -262,16 +262,16 @@ export default function CreateInvoicePage() {
 
   <div className="space-y-6">
   <Card>
-  <CardHeader className=" bg-gray-50/50 pb-4">
+  <CardHeader className=" bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50 pb-4">
   <CardTitle className="text-lg">Summary</CardTitle>
   </CardHeader>
   <CardContent className="p-6 space-y-4">
   <div className="flex justify-between text-sm">
-  <span className="text-gray-500">Subtotal</span>
+  <span className="text-gray-500 dark:text-gray-400">Subtotal</span>
   <span className="font-medium">{formatCurrency(subtotal)}</span>
   </div>
   <div className="flex justify-between text-sm items-center">
-  <span className="text-gray-500">Tax (%)</span>
+  <span className="text-gray-500 dark:text-gray-400">Tax (%)</span>
   <div className="w-20">
   <Input type="number" className="h-8 text-right" value={taxRate}
   onChange={(e) => setTaxRate(parseFloat(e.target.value) || 0)}
@@ -279,7 +279,7 @@ export default function CreateInvoicePage() {
   </div>
   </div>
   <div className="flex justify-between text-sm">
-  <span className="text-gray-500">Tax Amount</span>
+  <span className="text-gray-500 dark:text-gray-400">Tax Amount</span>
   <span className="font-medium">{formatCurrency(taxAmount)}</span>
   </div>
   <div className=" pt-4 mt-2 flex justify-between">
@@ -290,12 +290,12 @@ export default function CreateInvoicePage() {
   </Card>
 
   <Card>
-  <CardHeader className=" bg-gray-50/50 pb-4">
+  <CardHeader className=" bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50 pb-4">
   <CardTitle className="text-lg">Settings & Actions</CardTitle>
   </CardHeader>
   <CardContent className="p-6 space-y-6">
   <div className="space-y-2">
-  <label className="text-sm font-medium text-gray-700 ">Template</label>
+  <label className="text-sm font-medium text-gray-700 dark:text-gray-300 ">Template</label>
   <div className="grid grid-cols-2 gap-2">
   {templates.map(tpl => (
   <div key={tpl.id}
@@ -306,7 +306,7 @@ export default function CreateInvoicePage() {
   <div className="w-3 h-3 rounded-full" style={{backgroundColor: tpl.primaryColor}}></div>
   {tpl.name}
   </div>
-  <div className="text-xs text-gray-500 font-normal">{tpl.font}</div>
+  <div className="text-xs text-gray-500 dark:text-gray-400 font-normal">{tpl.font}</div>
   </div>
   ))}
   </div>
@@ -379,20 +379,20 @@ export default function CreateInvoicePage() {
   {showPreview && (
    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
     <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowPreview(false)} />
-    <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-2xl my-4 overflow-hidden animate-fade-in">
+    <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-2xl my-4 overflow-hidden animate-fade-in">
      {/* Modal header */}
-     <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-      <div className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+     <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
+      <div className="flex items-center gap-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
        <Eye size={16} className="text-primary" />
        Invoice Preview
       </div>
-      <button onClick={() => setShowPreview(false)} className="text-gray-400 hover:text-gray-700 transition-colors p-1 rounded-lg hover:bg-gray-100">
+      <button onClick={() => setShowPreview(false)} className="text-gray-400 hover:text-gray-700 dark:text-gray-300 transition-colors p-1 rounded-lg hover:bg-gray-100">
        <X size={18} />
       </button>
      </div>
 
      {/* Invoice document */}
-     <div className="p-6 bg-white">
+     <div className="p-6 bg-white dark:bg-gray-900">
       {/* Branded header */}
       <div
        className="rounded-xl p-4 mb-4 flex items-start justify-between"
@@ -401,7 +401,7 @@ export default function CreateInvoicePage() {
        <div>
          <div className="flex items-center gap-3 mb-2">
           {template.logo ? (
-            <div className="bg-white border border-gray-150 p-1 rounded-lg flex items-center justify-center h-8 w-8 shadow-sm overflow-hidden">
+            <div className="bg-white dark:bg-gray-900 border border-gray-150 p-1 rounded-lg flex items-center justify-center h-8 w-8 shadow-sm overflow-hidden">
               <img src={template.logo} alt="Company Logo" className="max-h-full max-w-full object-contain" />
             </div>
           ) : (
@@ -413,10 +413,10 @@ export default function CreateInvoicePage() {
            {company.name}
           </span>
          </div>
-        <p className="text-xs text-gray-500">{company.address}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400">{company.address}</p>
        </div>
        <div className="text-right">
-        <p className="text-xl font-black tracking-tight text-gray-900">INVOICE</p>
+        <p className="text-xl font-black tracking-tight text-gray-900 dark:text-gray-100">INVOICE</p>
         <p className="text-xs font-semibold mt-1" style={{ color: template.primaryColor }}>INV-2025-{invoiceNum}</p>
        </div>
       </div>
@@ -425,23 +425,23 @@ export default function CreateInvoicePage() {
       <div className="grid grid-cols-3 gap-4 mb-4">
        <div>
         <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">From</p>
-        <p className="text-sm font-semibold text-gray-900">{company.name}</p>
-        <p className="text-xs text-gray-500 mt-0.5">{company.email}</p>
+        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">{company.name}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{company.email}</p>
        </div>
        <div>
         <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Bill To</p>
-        <p className="text-sm font-semibold text-gray-900">{client.name}</p>
-        <p className="text-xs text-gray-500 mt-0.5">{client.email}</p>
+        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">{client.name}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{client.email}</p>
        </div>
        <div className="text-right">
         <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Due Date</p>
-        <p className="text-sm font-semibold text-gray-900">{new Date(dueDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+        <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">{new Date(dueDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
         <span className="inline-block mt-1 text-xs px-2 py-0.5 rounded-full font-medium text-amber-700 bg-amber-100">Due</span>
        </div>
       </div>
 
       {/* Line items table */}
-      <div className="rounded-xl overflow-hidden border border-gray-100 mb-4">
+      <div className="rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 mb-4">
        <table className="w-full text-sm">
         <thead>
          <tr style={{ backgroundColor: template.primaryColor }}>
@@ -453,11 +453,11 @@ export default function CreateInvoicePage() {
         </thead>
         <tbody>
          {items.map((item, i) => (
-          <tr key={item.id} className={i % 2 === 0 ? 'bg-white' : 'bg-gray-50/60'}>
+          <tr key={item.id} className={i % 2 === 0 ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-[#1a1a24]/60'}>
            <td className="px-3 py-2 text-gray-800">{item.description || <span className="text-gray-300 italic">No description</span>}</td>
-           <td className="px-3 py-2 text-center text-gray-600">{item.quantity}</td>
-           <td className="px-3 py-2 text-right text-gray-600">{formatCurrency(item.rate)}</td>
-           <td className="px-3 py-2 text-right font-semibold text-gray-900">{formatCurrency(item.quantity * item.rate)}</td>
+           <td className="px-3 py-2 text-center text-gray-600 dark:text-gray-400">{item.quantity}</td>
+           <td className="px-3 py-2 text-right text-gray-600 dark:text-gray-400">{formatCurrency(item.rate)}</td>
+           <td className="px-3 py-2 text-right font-semibold text-gray-900 dark:text-gray-100">{formatCurrency(item.quantity * item.rate)}</td>
           </tr>
          ))}
         </tbody>
@@ -467,13 +467,13 @@ export default function CreateInvoicePage() {
       {/* Totals */}
       <div className="flex justify-end mb-4">
        <div className="w-64 space-y-2">
-        <div className="flex justify-between text-sm text-gray-500">
+        <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400">
          <span>Subtotal</span><span className="font-medium text-gray-800">{formatCurrency(subtotal)}</span>
         </div>
-        <div className="flex justify-between text-sm text-gray-500">
+        <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400">
          <span>Tax ({taxRate}%)</span><span className="font-medium text-gray-800">{formatCurrency(taxAmount)}</span>
         </div>
-        <div className="flex justify-between text-base font-bold pt-2 border-t border-gray-200" style={{ color: template.primaryColor }}>
+        <div className="flex justify-between text-base font-bold pt-2 border-t border-gray-200 dark:border-white/10" style={{ color: template.primaryColor }}>
          <span>Total</span><span>{formatCurrency(total)}</span>
         </div>
        </div>
@@ -481,15 +481,15 @@ export default function CreateInvoicePage() {
 
       {/* Notes */}
       {notes && (
-       <div className="border border-gray-100 rounded-xl p-3 bg-gray-50/50">
+       <div className="border border-gray-100 dark:border-gray-800 rounded-xl p-3 bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50">
         <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-1">Notes</p>
-        <p className="text-xs text-gray-600">{notes}</p>
+        <p className="text-xs text-gray-600 dark:text-gray-400">{notes}</p>
        </div>
       )}
      </div>
 
      {/* Modal footer */}
-     <div className="px-6 py-3 border-t border-gray-100 flex justify-end gap-3 bg-gray-50/50">
+     <div className="px-6 py-3 border-t border-gray-100 dark:border-gray-800 flex justify-end gap-3 bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50">
       <Button variant="secondary" size="sm" onClick={() => setShowPreview(false)}>Close</Button>
       <Button onClick={handleSaveDraft} size="sm" disabled={draftSaved} className="gap-1.5">
        <Save size={14} />{draftSaved ? "Saved!" : "Save Draft"}

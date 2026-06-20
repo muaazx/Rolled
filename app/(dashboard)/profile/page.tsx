@@ -48,7 +48,7 @@ export default function ProfilePage() {
       {/* Page Header */}
       <div>
         <h1 className="font-bold text-2xl mb-1">My Profile</h1>
-        <p className="text-gray-500 text-sm">View your personal directory records, role credentials, and payroll parameters.</p>
+        <p className="text-gray-500 dark:text-gray-400 text-sm">View your personal directory records, role credentials, and payroll parameters.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -56,13 +56,13 @@ export default function ProfilePage() {
         <Card className="md:col-span-1 overflow-hidden h-fit">
           <div className="h-16 bg-gradient-to-r from-primary to-blue-600"></div>
           <CardContent className="p-6 text-center relative -mt-8">
-            <div className="w-20 h-20 rounded-full bg-white p-1 shadow-lg mx-auto mb-4">
+            <div className="w-20 h-20 rounded-full bg-white dark:bg-gray-900 p-1 shadow-lg mx-auto mb-4">
               <div className="w-full h-full rounded-full bg-gradient-to-br from-primary-light to-primary flex items-center justify-center text-white text-2xl font-black">
                 {name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2)}
               </div>
             </div>
             
-            <h3 className="font-bold text-lg text-gray-900 leading-tight">{name}</h3>
+            <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100 leading-tight">{name}</h3>
             <p className="text-xs text-primary font-semibold mt-1">{designation}</p>
             <p className="text-[10px] text-gray-400 font-mono mt-0.5">{employeeProfile?.employeeId || "System Profile"}</p>
 
@@ -72,18 +72,18 @@ export default function ProfilePage() {
               </Badge>
             </div>
 
-            <div className="mt-6 pt-6 border-t border-gray-100 text-left space-y-3.5 text-xs text-gray-500">
+            <div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-800 text-left space-y-3.5 text-xs text-gray-500 dark:text-gray-400">
               <div className="flex items-center gap-2.5">
                 <Mail size={14} className="text-gray-400" />
-                <span className="truncate text-gray-900 font-medium">{email}</span>
+                <span className="truncate text-gray-900 dark:text-gray-100 font-medium">{email}</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone size={14} className="text-gray-400" />
-                <span className="text-gray-900 font-medium">{phone}</span>
+                <span className="text-gray-900 dark:text-gray-100 font-medium">{phone}</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Shield size={14} className="text-gray-400" />
-                <span className="text-gray-900 capitalize font-medium">{role?.replace('_', ' ') || 'employee'}</span>
+                <span className="text-gray-900 dark:text-gray-100 capitalize font-medium">{role?.replace('_', ' ') || 'employee'}</span>
               </div>
             </div>
           </CardContent>
@@ -93,7 +93,7 @@ export default function ProfilePage() {
         <div className="md:col-span-2 space-y-6">
           {/* Work details */}
           <Card>
-            <CardHeader className="bg-gray-50/50 pb-4">
+            <CardHeader className="bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50 pb-4">
               <CardTitle className="text-sm font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1.5">
                 <Briefcase size={14} className="text-primary" /> Employment Profile
               </CardTitle>
@@ -121,13 +121,13 @@ export default function ProfilePage() {
           {/* Salary Structure (only visible if configured) */}
           {employeeProfile && (
             <Card>
-              <CardHeader className="bg-gray-50/50 pb-4">
+              <CardHeader className="bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50 pb-4">
                 <CardTitle className="text-sm font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1.5">
                   <Banknote size={14} className="text-primary" /> Compensation Parameters
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-6 space-y-4">
-                <div className="p-4 bg-gray-50 border border-gray-150 rounded-xl flex justify-between items-center">
+                <div className="p-4 bg-gray-50 dark:bg-[#1a1a24] border border-gray-150 rounded-xl flex justify-between items-center">
                   <div>
                     <span className="text-gray-400 block font-semibold uppercase tracking-wider text-[9px]">Basic Salary</span>
                     <span className="text-[10px] text-gray-400">Regular base take-home wage</span>
@@ -138,11 +138,11 @@ export default function ProfilePage() {
                 <div className="grid grid-cols-2 gap-4">
                   {/* Allowances */}
                   <div className="space-y-2">
-                    <span className="text-xs font-bold text-gray-700 block">Allowances</span>
+                    <span className="text-xs font-bold text-gray-700 dark:text-gray-300 block">Allowances</span>
                     <div className="space-y-1.5">
                       {employeeProfile.salaryStructure.allowances.map((allow, idx) => (
                         <div key={idx} className="flex justify-between items-center text-xs p-2 bg-green-50/30 border border-green-100 rounded-lg">
-                          <span className="text-gray-600 font-medium">{allow.label}</span>
+                          <span className="text-gray-600 dark:text-gray-400 font-medium">{allow.label}</span>
                           <span className="font-bold text-green-700">+{formatCurrency(allow.amount)}</span>
                         </div>
                       ))}
@@ -154,11 +154,11 @@ export default function ProfilePage() {
 
                   {/* Deductions */}
                   <div className="space-y-2">
-                    <span className="text-xs font-bold text-gray-700 block">Deductions</span>
+                    <span className="text-xs font-bold text-gray-700 dark:text-gray-300 block">Deductions</span>
                     <div className="space-y-1.5">
                       {employeeProfile.salaryStructure.deductions.map((ded, idx) => (
                         <div key={idx} className="flex justify-between items-center text-xs p-2 bg-red-50/30 border border-red-100 rounded-lg">
-                          <span className="text-gray-600 font-medium">{ded.label}</span>
+                          <span className="text-gray-600 dark:text-gray-400 font-medium">{ded.label}</span>
                           <span className="font-bold text-red-700">-{formatCurrency(ded.amount)}</span>
                         </div>
                       ))}
@@ -175,7 +175,7 @@ export default function ProfilePage() {
           {/* Bank Details */}
           {employeeProfile && (
             <Card>
-              <CardHeader className="bg-gray-50/50 pb-4">
+              <CardHeader className="bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50 pb-4">
                 <CardTitle className="text-sm font-bold uppercase tracking-wider text-gray-400 flex items-center gap-1.5">
                   <CreditCard size={14} className="text-primary" /> Bank Credentials
                 </CardTitle>

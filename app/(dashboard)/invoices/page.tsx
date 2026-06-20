@@ -68,7 +68,7 @@ export default function InvoicesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-bold text-2xl mb-1">Invoices</h1>
-          <p className="text-gray-500 text-sm">Manage your billing and collections.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">Manage your billing and collections.</p>
         </div>
         <Link href="/invoices/create">
           <Button className="w-full sm:w-auto">
@@ -95,7 +95,7 @@ export default function InvoicesPage() {
                 All
               </Button>
               <Button variant={statusFilter === "DRAFT" ? "secondary" : "ghost"} onClick={() => setStatusFilter("DRAFT")}
-                className="text-xs px-3 h-8 text-gray-500"
+                className="text-xs px-3 h-8 text-gray-500 dark:text-gray-400"
               >
                 Draft
               </Button>
@@ -169,10 +169,10 @@ export default function InvoicesPage() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                    <td colSpan={6} className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                       <div className="flex flex-col items-center justify-center">
                         <FileText size={48} className="text-gray-300 mb-4" />
-                        <p className="text-base font-medium text-gray-900 mb-1">No invoices found</p>
+                        <p className="text-base font-medium text-gray-900 dark:text-gray-100 mb-1">No invoices found</p>
                         <p className="text-sm">We couldn't find any invoices matching your filters.</p>
                       </div>
                     </td>
@@ -188,10 +188,10 @@ export default function InvoicesPage() {
       {sendingInvoice && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setSendingInvoice(null)} />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 animate-fade-in">
+          <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md p-6 animate-fade-in">
             <button
               onClick={() => setSendingInvoice(null)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:text-gray-300 transition-colors"
             >
               <X size={20} />
             </button>
@@ -201,8 +201,8 @@ export default function InvoicesPage() {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle2 size={32} className="text-green-600" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Invoice Sent!</h3>
-                <p className="text-sm text-gray-500 mb-6">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">Invoice Sent!</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
                   <strong>{sendingInvoice.number}</strong> has been emailed to <strong>{emailInput}</strong>.
                 </p>
                 <Button onClick={() => setSendingInvoice(null)} className="w-full">Done</Button>
@@ -214,30 +214,30 @@ export default function InvoicesPage() {
                     <div className="w-9 h-9 bg-primary/10 rounded-lg flex items-center justify-center">
                       <Send size={18} className="text-primary" />
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900">Send Invoice</h3>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">Send Invoice</h3>
                   </div>
-                  <p className="text-sm text-gray-500 ml-12">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 ml-12">
                     Email <strong>{sendingInvoice.number}</strong> to your client.
                   </p>
                 </div>
 
                 <div className="space-y-4">
-                  <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 flex justify-between text-sm">
-                    <span className="text-gray-500">Invoice</span>
-                    <span className="font-semibold text-gray-900">{sendingInvoice.number}</span>
+                  <div className="p-3 bg-gray-50 dark:bg-[#1a1a24] rounded-xl border border-gray-100 dark:border-gray-800 flex justify-between text-sm">
+                    <span className="text-gray-500 dark:text-gray-400">Invoice</span>
+                    <span className="font-semibold text-gray-900 dark:text-gray-100">{sendingInvoice.number}</span>
                   </div>
-                  <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 flex justify-between text-sm">
-                    <span className="text-gray-500">Total</span>
+                  <div className="p-3 bg-gray-50 dark:bg-[#1a1a24] rounded-xl border border-gray-100 dark:border-gray-800 flex justify-between text-sm">
+                    <span className="text-gray-500 dark:text-gray-400">Total</span>
                     <span className="font-semibold text-primary">{formatCurrency(sendingInvoice.total)}</span>
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-gray-700">Recipient Email</label>
+                    <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Recipient Email</label>
                     <Input
                       type="email"
                       placeholder="client@company.com"
                       value={emailInput}
                       onChange={e => setEmailInput(e.target.value)}
-                      className="bg-gray-50 border-gray-200 focus:bg-white"
+                      className="bg-gray-50 dark:bg-[#1a1a24] border-gray-200 dark:border-white/10 focus:bg-white dark:bg-gray-900"
                     />
                   </div>
                   <Button

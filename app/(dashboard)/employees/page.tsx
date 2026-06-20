@@ -259,11 +259,11 @@ export default function EmployeesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-bold text-2xl mb-1">Employees</h1>
-          <p className="text-gray-500 text-sm">Manage your team profiles, department roles, and salary structures.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">Manage your team profiles, department roles, and salary structures.</p>
         </div>
         <div className="flex gap-2">
           <Button variant="secondary" onClick={() => setIsDeptModalOpen(true)}>
-            <Building size={16} className="mr-1.5 text-gray-500" />
+            <Building size={16} className="mr-1.5 text-gray-500 dark:text-gray-400" />
             Departments
           </Button>
           <Button className="w-full sm:w-auto" onClick={openAddModal}>
@@ -298,15 +298,15 @@ export default function EmployeesPage() {
                   ...departments.map(d => ({ value: d, label: d }))
                 ]}
               />
-              <div className="flex items-center rounded-md overflow-hidden shrink-0 border border-gray-150 bg-gray-50/50">
+              <div className="flex items-center rounded-md overflow-hidden shrink-0 border border-gray-150 bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50">
                 <button 
-                  className={`p-2 hover:bg-gray-100 transition-colors ${viewMode === 'grid' ? 'bg-white shadow-sm text-primary font-semibold' : 'text-gray-500'}`}
+                  className={`p-2 hover:bg-gray-100 transition-colors ${viewMode === 'grid' ? 'bg-white dark:bg-gray-900 shadow-sm text-primary font-semibold' : 'text-gray-500 dark:text-gray-400'}`}
                   onClick={() => setViewMode('grid')}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                 </button>
                 <button 
-                  className={`p-2 hover:bg-gray-100 transition-colors ${viewMode === 'list' ? 'bg-white shadow-sm text-primary font-semibold' : 'text-gray-500'}`}
+                  className={`p-2 hover:bg-gray-100 transition-colors ${viewMode === 'list' ? 'bg-white dark:bg-gray-900 shadow-sm text-primary font-semibold' : 'text-gray-500 dark:text-gray-400'}`}
                   onClick={() => setViewMode('list')}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
@@ -326,7 +326,7 @@ export default function EmployeesPage() {
                   <div className="absolute top-2 right-2 z-10">
                     <Button 
                       variant="ghost" 
-                      className="h-8 w-8 p-0 text-white hover:text-white hover:bg-white/20 bg-black/10 rounded-full"
+                      className="h-8 w-8 p-0 text-white hover:text-white hover:bg-white dark:bg-gray-900/20 bg-black/10 rounded-full"
                       onClick={(e) => {
                         e.stopPropagation()
                         setOpenMenuId(openMenuId === emp.id ? null : emp.id)
@@ -337,14 +337,14 @@ export default function EmployeesPage() {
                     {openMenuId === emp.id && (
                       <>
                         <div className="fixed inset-0 z-10" onClick={(e) => { e.stopPropagation(); setOpenMenuId(null); }} />
-                        <div className="absolute right-0 mt-1 w-36 bg-white border border-gray-100 rounded-xl shadow-lg z-20 py-1 text-left">
+                        <div className="absolute right-0 mt-1 w-36 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl shadow-lg z-20 py-1 text-left">
                           <button
                             onClick={(e) => {
                               e.stopPropagation()
                               setOpenMenuId(null)
                               openEditModal(emp)
                             }}
-                            className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
+                            className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-[#1a1a24] transition-colors"
                           >
                             <Pencil size={12} className="text-gray-400" /> Edit Profile
                           </button>
@@ -371,17 +371,17 @@ export default function EmployeesPage() {
                     </div>
 
                     <div className="space-y-1">
-                      <h3 className="font-semibold text-base leading-tight group-hover:text-primary transition-colors text-gray-900">{emp.name}</h3>
-                      <p className="text-xs text-gray-500">{emp.designation}</p>
+                      <h3 className="font-semibold text-base leading-tight group-hover:text-primary transition-colors text-gray-900 dark:text-gray-100">{emp.name}</h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{emp.designation}</p>
                       <p className="text-[10px] text-gray-400 font-mono">{emp.employeeId}</p>
                     </div>
 
-                    <div className="mt-4 pt-4 border-t border-gray-100 space-y-2">
-                      <div className="flex items-center gap-2 text-xs text-gray-500">
+                    <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800 space-y-2">
+                      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                         <Building size={13} className="text-gray-400" />
                         {emp.department}
                       </div>
-                      <div className="flex items-center gap-2 text-xs text-gray-500">
+                      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                         <Mail size={13} className="text-gray-400" />
                         <span className="truncate">{emp.email}</span>
                       </div>
@@ -411,17 +411,17 @@ export default function EmployeesPage() {
                       <tr key={emp.id}>
                         <td>
                           <div>
-                            <div className="font-medium text-gray-900 ">{emp.name}</div>
-                            <div className="text-xs text-gray-500">{emp.designation}</div>
+                            <div className="font-medium text-gray-900 dark:text-gray-100 ">{emp.name}</div>
+                            <div className="text-xs text-gray-500 dark:text-gray-400">{emp.designation}</div>
                           </div>
                         </td>
                         <td>
-                          <div className="text-gray-900 font-mono text-sm">{emp.employeeId}</div>
-                          <div className="text-xs text-gray-500">{emp.department}</div>
+                          <div className="text-gray-900 dark:text-gray-100 font-mono text-sm">{emp.employeeId}</div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400">{emp.department}</div>
                         </td>
                         <td>
-                          <div className="text-gray-900 text-sm flex items-center gap-1"><Mail size={11} className="text-gray-400" /> {emp.email}</div>
-                          <div className="text-xs text-gray-500 flex items-center gap-1 mt-0.5"><Phone size={11} className="text-gray-400" /> {emp.phone}</div>
+                          <div className="text-gray-900 dark:text-gray-100 text-sm flex items-center gap-1"><Mail size={11} className="text-gray-400" /> {emp.email}</div>
+                          <div className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1 mt-0.5"><Phone size={11} className="text-gray-400" /> {emp.phone}</div>
                         </td>
                         <td>
                           {emp.joinDate}
@@ -443,13 +443,13 @@ export default function EmployeesPage() {
                             {openMenuId === emp.id && (
                               <>
                                 <div className="fixed inset-0 z-10" onClick={() => setOpenMenuId(null)} />
-                                <div className="absolute right-0 mt-1 w-36 bg-white border border-gray-100 rounded-xl shadow-lg z-20 py-1 text-left">
+                                <div className="absolute right-0 mt-1 w-36 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl shadow-lg z-20 py-1 text-left">
                                   <button
                                     onClick={() => {
                                       setOpenMenuId(null)
                                       openEditModal(emp)
                                     }}
-                                    className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-gray-700 hover:bg-gray-50 transition-colors"
+                                    className="flex items-center gap-2 w-full px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-[#1a1a24] transition-colors"
                                   >
                                     <Pencil size={12} className="text-gray-400" /> Edit Profile
                                   </button>
@@ -471,10 +471,10 @@ export default function EmployeesPage() {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                      <td colSpan={6} className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                         <div className="flex flex-col items-center justify-center">
                           <User size={48} className="text-gray-300 mb-4" />
-                          <p className="text-base font-medium text-gray-900 mb-1">No employees found</p>
+                          <p className="text-base font-medium text-gray-900 dark:text-gray-100 mb-1">No employees found</p>
                           <p className="text-sm">We couldn't find any employees matching your search.</p>
                         </div>
                       </td>
@@ -491,20 +491,20 @@ export default function EmployeesPage() {
       {isDeptModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setIsDeptModalOpen(false)} />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-5 animate-fade-in max-h-[85vh] overflow-y-auto">
+          <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md p-5 animate-fade-in max-h-[85vh] overflow-y-auto">
             <button
               onClick={() => setIsDeptModalOpen(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:text-gray-300 transition-colors"
             >
               <X size={18} />
             </button>
 
-            <div className="mb-4 flex items-center gap-2.5 border-b border-gray-100 pb-3">
+            <div className="mb-4 flex items-center gap-2.5 border-b border-gray-100 dark:border-gray-800 pb-3">
               <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center text-primary">
                 <Building size={16} />
               </div>
               <div>
-                <h3 className="text-base font-bold text-gray-900">Departments Directory</h3>
+                <h3 className="text-base font-bold text-gray-900 dark:text-gray-100">Departments Directory</h3>
                 <p className="text-[10px] text-gray-400">Headcount allocation and payroll expenses breakdown.</p>
               </div>
             </div>
@@ -515,7 +515,7 @@ export default function EmployeesPage() {
                 const pct = Math.round((d.headcount / totalHeadcount) * 100)
                 
                 return (
-                  <div key={i} className="p-3 bg-gray-50 border border-gray-150 rounded-xl space-y-1.5">
+                  <div key={i} className="p-3 bg-gray-50 dark:bg-[#1a1a24] border border-gray-150 rounded-xl space-y-1.5">
                     <div className="flex justify-between items-start">
                       <div>
                         <h4 className="font-bold text-gray-805 text-xs">{d.name}</h4>
@@ -559,12 +559,12 @@ export default function EmployeesPage() {
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setIsEmployeeModalOpen(false)} />
           <form 
             onSubmit={handleSaveEmployee} 
-            className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-4 animate-fade-in max-h-[90vh] overflow-y-auto"
+            className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md p-4 animate-fade-in max-h-[90vh] overflow-y-auto"
           >
             <button
               type="button"
               onClick={() => setIsEmployeeModalOpen(false)}
-              className="absolute top-3.5 right-3.5 text-gray-400 hover:text-gray-700 transition-colors"
+              className="absolute top-3.5 right-3.5 text-gray-400 hover:text-gray-700 dark:text-gray-300 transition-colors"
             >
               <X size={16} />
             </button>
@@ -574,7 +574,7 @@ export default function EmployeesPage() {
                 <User size={14} />
               </div>
               <div>
-                <h3 className="text-sm font-bold text-gray-900 leading-tight">{editingEmployee ? "Edit Employee Profile" : "Add New Employee"}</h3>
+                <h3 className="text-sm font-bold text-gray-900 dark:text-gray-100 leading-tight">{editingEmployee ? "Edit Employee Profile" : "Add New Employee"}</h3>
                 <p className="text-[9px] text-gray-400">Specify identity, payroll structure, and bank credentials.</p>
               </div>
             </div>
@@ -584,21 +584,21 @@ export default function EmployeesPage() {
               <button
                 type="button"
                 onClick={() => setFormTab("general")}
-                className={`pb-1.5 flex-1 border-b-2 text-center transition-colors ${formTab === "general" ? "border-primary text-primary" : "border-transparent hover:text-gray-700"}`}
+                className={`pb-1.5 flex-1 border-b-2 text-center transition-colors ${formTab === "general" ? "border-primary text-primary" : "border-transparent hover:text-gray-700 dark:text-gray-300"}`}
               >
                 1. General
               </button>
               <button
                 type="button"
                 onClick={() => setFormTab("salary")}
-                className={`pb-1.5 flex-1 border-b-2 text-center transition-colors ${formTab === "salary" ? "border-primary text-primary" : "border-transparent hover:text-gray-700"}`}
+                className={`pb-1.5 flex-1 border-b-2 text-center transition-colors ${formTab === "salary" ? "border-primary text-primary" : "border-transparent hover:text-gray-700 dark:text-gray-300"}`}
               >
                 2. Salary
               </button>
               <button
                 type="button"
                 onClick={() => setFormTab("bank")}
-                className={`pb-1.5 flex-1 border-b-2 text-center transition-colors ${formTab === "bank" ? "border-primary text-primary" : "border-transparent hover:text-gray-700"}`}
+                className={`pb-1.5 flex-1 border-b-2 text-center transition-colors ${formTab === "bank" ? "border-primary text-primary" : "border-transparent hover:text-gray-700 dark:text-gray-300"}`}
               >
                 3. Bank
               </button>
@@ -614,40 +614,40 @@ export default function EmployeesPage() {
                   </h4>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="space-y-0.5 col-span-2">
-                      <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Full Name</label>
+                      <label className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Full Name</label>
                       <Input 
                         required
                         placeholder="e.g., Jane Doe"
                         value={formData.name}
                         onChange={e => setFormData({ ...formData, name: e.target.value })}
-                        className="bg-gray-50 focus:bg-white h-8 text-xs py-1 px-2.5"
+                        className="bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 h-8 text-xs py-1 px-2.5"
                       />
                     </div>
                     <div className="space-y-0.5 col-span-2">
-                      <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Email Address</label>
+                      <label className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Email Address</label>
                       <Input 
                         required
                         type="email"
                         placeholder="e.g., jane@company.com"
                         value={formData.email}
                         onChange={e => setFormData({ ...formData, email: e.target.value })}
-                        className="bg-gray-50 focus:bg-white h-8 text-xs py-1 px-2.5"
+                        className="bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 h-8 text-xs py-1 px-2.5"
                       />
                     </div>
                     <div className="space-y-0.5 col-span-1">
-                      <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Employee ID</label>
+                      <label className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Employee ID</label>
                       <Input 
                         required
                         placeholder="e.g., VTX-009"
                         value={formData.employeeId}
                         onChange={e => setFormData({ ...formData, employeeId: e.target.value })}
-                        className="bg-gray-50 focus:bg-white h-8 text-xs font-mono py-1 px-2.5"
+                        className="bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 h-8 text-xs font-mono py-1 px-2.5"
                       />
                     </div>
                     <div className="space-y-0.5 col-span-1">
-                      <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Status</label>
+                      <label className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</label>
                       <select
-                        className="flex h-8 w-full rounded-md border border-gray-200 bg-gray-50 px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-primary"
+                        className="flex h-8 w-full rounded-md border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#1a1a24] px-2 py-1 text-xs focus:outline-none focus:ring-2 focus:ring-primary"
                         value={formData.status}
                         onChange={e => setFormData({ ...formData, status: e.target.value as any })}
                       >
@@ -657,41 +657,41 @@ export default function EmployeesPage() {
                       </select>
                     </div>
                     <div className="space-y-0.5 col-span-1">
-                      <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Department</label>
+                      <label className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Department</label>
                       <Input 
                         required
                         placeholder="e.g., Engineering"
                         value={formData.department}
                         onChange={e => setFormData({ ...formData, department: e.target.value })}
-                        className="bg-gray-50 focus:bg-white h-8 text-xs py-1 px-2.5"
+                        className="bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 h-8 text-xs py-1 px-2.5"
                       />
                     </div>
                     <div className="space-y-0.5 col-span-1">
-                      <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Designation</label>
+                      <label className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Designation</label>
                       <Input 
                         required
                         placeholder="e.g., Full Stack Engineer"
                         value={formData.designation}
                         onChange={e => setFormData({ ...formData, designation: e.target.value })}
-                        className="bg-gray-50 focus:bg-white h-8 text-xs py-1 px-2.5"
+                        className="bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 h-8 text-xs py-1 px-2.5"
                       />
                     </div>
                     <div className="space-y-0.5 col-span-1">
-                      <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Phone Number</label>
+                      <label className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Phone Number</label>
                       <Input 
                         placeholder="e.g., +92 300 9876543"
                         value={formData.phone}
                         onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                        className="bg-gray-50 focus:bg-white h-8 text-xs py-1 px-2.5"
+                        className="bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 h-8 text-xs py-1 px-2.5"
                       />
                     </div>
                     <div className="space-y-0.5 col-span-1">
-                      <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Join Date</label>
+                      <label className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Join Date</label>
                       <Input 
                         type="date"
                         value={formData.joinDate}
                         onChange={e => setFormData({ ...formData, joinDate: e.target.value })}
-                        className="bg-gray-50 focus:bg-white h-8 text-xs py-1 px-2.5"
+                        className="bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 h-8 text-xs py-1 px-2.5"
                       />
                     </div>
                   </div>
@@ -707,7 +707,7 @@ export default function EmployeesPage() {
                   
                   <div className="space-y-2">
                     <div className="space-y-0.5 w-full sm:w-1/2">
-                      <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Basic Salary</label>
+                      <label className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Basic Salary</label>
                       <Input 
                         type="number"
                         required
@@ -715,7 +715,7 @@ export default function EmployeesPage() {
                         placeholder="Basic pay amount"
                         value={formData.basicSalary || ""}
                         onChange={e => setFormData({ ...formData, basicSalary: Number(e.target.value) })}
-                        className="bg-gray-50 focus:bg-white h-8 text-xs font-semibold py-1 px-2.5"
+                        className="bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 h-8 text-xs font-semibold py-1 px-2.5"
                       />
                     </div>
 
@@ -723,7 +723,7 @@ export default function EmployeesPage() {
                       {/* Allowances List */}
                       <div className="space-y-1">
                         <div className="flex justify-between items-center">
-                          <span className="text-[9px] font-bold text-gray-500 uppercase">Allowances</span>
+                          <span className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase">Allowances</span>
                           <Button type="button" variant="ghost" className="h-5 px-1 text-[9px] text-primary hover:bg-primary/5" onClick={handleAddAllowance}>
                             <Plus size={8} className="mr-0.5" /> Add
                           </Button>
@@ -735,14 +735,14 @@ export default function EmployeesPage() {
                                 placeholder="Label"
                                 value={allow.label}
                                 onChange={e => handleUpdateAllowance(idx, 'label', e.target.value)}
-                                className="h-7 text-[11px] bg-gray-50 focus:bg-white px-1.5 py-0.5"
+                                className="h-7 text-[11px] bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 px-1.5 py-0.5"
                               />
                               <Input 
                                 type="number"
                                 placeholder="Amount"
                                 value={allow.amount || ""}
                                 onChange={e => handleUpdateAllowance(idx, 'amount', Number(e.target.value))}
-                                className="h-7 text-[11px] bg-gray-50 focus:bg-white w-14 px-1 py-0.5"
+                                className="h-7 text-[11px] bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 w-14 px-1 py-0.5"
                               />
                               <Button 
                                 type="button" 
@@ -760,7 +760,7 @@ export default function EmployeesPage() {
                       {/* Deductions List */}
                       <div className="space-y-1">
                         <div className="flex justify-between items-center">
-                          <span className="text-[9px] font-bold text-gray-500 uppercase">Deductions</span>
+                          <span className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase">Deductions</span>
                           <Button type="button" variant="ghost" className="h-5 px-1 text-[9px] text-primary hover:bg-primary/5" onClick={handleAddDeduction}>
                             <Plus size={8} className="mr-0.5" /> Add
                           </Button>
@@ -772,14 +772,14 @@ export default function EmployeesPage() {
                                 placeholder="Label"
                                 value={ded.label}
                                 onChange={e => handleUpdateDeduction(idx, 'label', e.target.value)}
-                                className="h-7 text-[11px] bg-gray-50 focus:bg-white px-1.5 py-0.5"
+                                className="h-7 text-[11px] bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 px-1.5 py-0.5"
                               />
                               <Input 
                                 type="number"
                                 placeholder="Amount"
                                 value={ded.amount || ""}
                                 onChange={e => handleUpdateDeduction(idx, 'amount', Number(e.target.value))}
-                                className="h-7 text-[11px] bg-gray-50 focus:bg-white w-14 px-1 py-0.5"
+                                className="h-7 text-[11px] bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 w-14 px-1 py-0.5"
                               />
                               <Button 
                                 type="button" 
@@ -806,30 +806,30 @@ export default function EmployeesPage() {
                   </h4>
                   <div className="grid grid-cols-2 gap-2">
                     <div className="space-y-0.5 col-span-1">
-                      <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Bank Name</label>
+                      <label className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Bank Name</label>
                       <Input 
                         placeholder="e.g. HBL"
                         value={formData.bankName}
                         onChange={e => setFormData({ ...formData, bankName: e.target.value })}
-                        className="bg-gray-50 focus:bg-white h-8 text-xs py-1 px-2.5"
+                        className="bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 h-8 text-xs py-1 px-2.5"
                       />
                     </div>
                     <div className="space-y-0.5 col-span-1">
-                      <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">Account No.</label>
+                      <label className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Account No.</label>
                       <Input 
                         placeholder="e.g., 12345678"
                         value={formData.accountNumber}
                         onChange={e => setFormData({ ...formData, accountNumber: e.target.value })}
-                        className="bg-gray-50 focus:bg-white h-8 text-xs font-mono py-1 px-2.5"
+                        className="bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 h-8 text-xs font-mono py-1 px-2.5"
                       />
                     </div>
                     <div className="space-y-0.5 col-span-2">
-                      <label className="text-[9px] font-bold text-gray-500 uppercase tracking-wider">IBAN</label>
+                      <label className="text-[9px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">IBAN</label>
                       <Input 
                         placeholder="e.g., PK36..."
                         value={formData.iban}
                         onChange={e => setFormData({ ...formData, iban: e.target.value })}
-                        className="bg-gray-50 focus:bg-white h-8 text-xs font-mono py-1 px-2.5"
+                        className="bg-gray-50 dark:bg-[#1a1a24] focus:bg-white dark:bg-gray-900 h-8 text-xs font-mono py-1 px-2.5"
                       />
                     </div>
                   </div>
@@ -874,10 +874,10 @@ export default function EmployeesPage() {
       {employeeToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setEmployeeToDelete(null)} />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 animate-fade-in text-center">
+          <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-sm p-6 animate-fade-in text-center">
             <button
               onClick={() => setEmployeeToDelete(null)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:text-gray-300 transition-colors"
             >
               <X size={20} />
             </button>
@@ -885,8 +885,8 @@ export default function EmployeesPage() {
             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 text-red-600">
               <Trash2 size={24} />
             </div>
-            <h3 className="text-lg font-bold text-gray-900 mb-2">Remove Employee?</h3>
-            <p className="text-xs text-gray-500">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">Remove Employee?</h3>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
               Are you sure you want to delete this employee profile? Their record and custom salary parameters will be permanently deleted.
             </p>
 

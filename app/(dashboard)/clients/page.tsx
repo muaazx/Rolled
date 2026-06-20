@@ -122,7 +122,7 @@ export default function ClientsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-bold text-2xl mb-1">Clients</h1>
-          <p className="text-gray-500 text-sm">Manage your client directory and billing history.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">Manage your client directory and billing history.</p>
         </div>
         <Button onClick={openAddModal}>
           <Plus size={16} />
@@ -166,18 +166,18 @@ export default function ClientsPage() {
                             {getClientInitials(client.name)}
                           </div>
                           <div>
-                            <div className="font-medium text-gray-900 ">{client.name}</div>
-                            <div className="text-xs text-gray-500 flex items-center gap-1 mt-0.5">
+                            <div className="font-medium text-gray-900 dark:text-gray-100 ">{client.name}</div>
+                            <div className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1 mt-0.5">
                               <MapPin size={10} /> {getShortAddress(client.address)}
                             </div>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <div className="text-gray-900 text-sm flex items-center gap-1.5 mb-0.5">
+                        <div className="text-gray-900 dark:text-gray-100 text-sm flex items-center gap-1.5 mb-0.5">
                           <Mail size={12} className="text-gray-400" /> {client.email}
                         </div>
-                        <div className="text-xs text-gray-500 flex items-center gap-1.5">
+                        <div className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
                           <Phone size={12} className="text-gray-400" /> {client.phone}
                         </div>
                       </td>
@@ -204,13 +204,13 @@ export default function ClientsPage() {
                           {openMenuId === client.id && (
                             <>
                               <div className="fixed inset-0 z-10" onClick={() => setOpenMenuId(null)} />
-                              <div className="absolute right-0 mt-1 w-48 bg-white border border-gray-100 rounded-xl shadow-lg z-20 py-1.5 animate-fade-in text-left">
+                              <div className="absolute right-0 mt-1 w-48 bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-xl shadow-lg z-20 py-1.5 animate-fade-in text-left">
                                 <button
                                   onClick={() => {
                                     setOpenMenuId(null)
                                     setViewingClient(client)
                                   }}
-                                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-[#1a1a24] transition-colors"
                                 >
                                   <Eye size={14} className="text-gray-400" /> View Details
                                 </button>
@@ -219,17 +219,17 @@ export default function ClientsPage() {
                                     setOpenMenuId(null)
                                     openEditModal(client)
                                   }}
-                                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-[#1a1a24] transition-colors"
                                 >
                                   <Pencil size={14} className="text-gray-400" /> Edit Client
                                 </button>
                                 <Link
                                   href={`/invoices/create?clientId=${client.id}`}
-                                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                  className="flex items-center gap-2 w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:bg-[#1a1a24] transition-colors"
                                 >
                                   <Plus size={14} className="text-gray-400" /> Create Invoice
                                 </Link>
-                                <div className="border-t my-1 border-gray-100" />
+                                <div className="border-t my-1 border-gray-100 dark:border-gray-800" />
                                 <button
                                   onClick={() => {
                                     setOpenMenuId(null)
@@ -248,10 +248,10 @@ export default function ClientsPage() {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center text-gray-500">
+                    <td colSpan={6} className="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
                       <div className="flex flex-col items-center justify-center">
                         <Building2 size={48} className="text-gray-300 mb-4" />
-                        <p className="text-base font-medium text-gray-900 mb-1">No clients found</p>
+                        <p className="text-base font-medium text-gray-900 dark:text-gray-100 mb-1">No clients found</p>
                         <p className="text-sm">We couldn't find any clients matching your search.</p>
                       </div>
                     </td>
@@ -267,10 +267,10 @@ export default function ClientsPage() {
       {viewingClient && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setViewingClient(null)} />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg p-6 animate-fade-in">
+          <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-lg p-6 animate-fade-in">
             <button
               onClick={() => setViewingClient(null)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:text-gray-300 transition-colors"
             >
               <X size={20} />
             </button>
@@ -281,42 +281,42 @@ export default function ClientsPage() {
                   {getClientInitials(viewingClient.name)}
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900">{viewingClient.name}</h3>
-                  <p className="text-xs text-gray-500">Client Profile</p>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">{viewingClient.name}</h3>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">Client Profile</p>
                 </div>
               </div>
             </div>
 
             <div className="space-y-4">
-              <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 space-y-1">
-                <div className="text-xs text-gray-500">Email Address</div>
-                <div className="text-sm font-medium text-gray-900 flex items-center gap-1.5 select-all">
+              <div className="p-3 bg-gray-50 dark:bg-[#1a1a24] rounded-xl border border-gray-100 dark:border-gray-800 space-y-1">
+                <div className="text-xs text-gray-500 dark:text-gray-400">Email Address</div>
+                <div className="text-sm font-medium text-gray-900 dark:text-gray-100 flex items-center gap-1.5 select-all">
                   <Mail size={14} className="text-gray-400" /> {viewingClient.email}
                 </div>
               </div>
-              <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 space-y-1">
-                <div className="text-xs text-gray-500">Phone Number</div>
-                <div className="text-sm font-medium text-gray-900 flex items-center gap-1.5 select-all">
+              <div className="p-3 bg-gray-50 dark:bg-[#1a1a24] rounded-xl border border-gray-100 dark:border-gray-800 space-y-1">
+                <div className="text-xs text-gray-500 dark:text-gray-400">Phone Number</div>
+                <div className="text-sm font-medium text-gray-900 dark:text-gray-100 flex items-center gap-1.5 select-all">
                   <Phone size={14} className="text-gray-400" /> {viewingClient.phone}
                 </div>
               </div>
-              <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 space-y-1">
-                <div className="text-xs text-gray-500">Billing Address</div>
-                <div className="text-sm font-medium text-gray-900 flex items-center gap-1.5 select-all">
+              <div className="p-3 bg-gray-50 dark:bg-[#1a1a24] rounded-xl border border-gray-100 dark:border-gray-800 space-y-1">
+                <div className="text-xs text-gray-500 dark:text-gray-400">Billing Address</div>
+                <div className="text-sm font-medium text-gray-900 dark:text-gray-100 flex items-center gap-1.5 select-all">
                   <MapPin size={14} className="text-gray-400" /> {viewingClient.address}
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 space-y-1">
-                  <div className="text-xs text-gray-500">Total Billed</div>
+                <div className="p-3 bg-gray-50 dark:bg-[#1a1a24] rounded-xl border border-gray-100 dark:border-gray-800 space-y-1">
+                  <div className="text-xs text-gray-500 dark:text-gray-400">Total Billed</div>
                   <div className="text-sm font-semibold text-primary">{formatCurrency(viewingClient.totalBilled)}</div>
                 </div>
-                <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 space-y-1">
-                  <div className="text-xs text-gray-500">Total Invoices</div>
-                  <div className="text-sm font-semibold text-gray-900">{viewingClient.invoiceCount}</div>
+                <div className="p-3 bg-gray-50 dark:bg-[#1a1a24] rounded-xl border border-gray-100 dark:border-gray-800 space-y-1">
+                  <div className="text-xs text-gray-500 dark:text-gray-400">Total Invoices</div>
+                  <div className="text-sm font-semibold text-gray-900 dark:text-gray-100">{viewingClient.invoiceCount}</div>
                 </div>
               </div>
-              <div className="p-3 bg-gray-50 rounded-xl border border-gray-100 flex justify-between items-center text-xs text-gray-500">
+              <div className="p-3 bg-gray-50 dark:bg-[#1a1a24] rounded-xl border border-gray-100 dark:border-gray-800 flex justify-between items-center text-xs text-gray-500 dark:text-gray-400">
                 <span>Date Added</span>
                 <span>{formatDate(viewingClient.createdAt)}</span>
               </div>
@@ -334,60 +334,60 @@ export default function ClientsPage() {
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setIsModalOpen(false)} />
-          <form onSubmit={handleSaveClient} className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 animate-fade-in">
+          <form onSubmit={handleSaveClient} className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md p-6 animate-fade-in">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:text-gray-300 transition-colors"
             >
               <X size={20} />
             </button>
 
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-gray-900">{editingClient ? "Edit Client Profile" : "Add New Client"}</h3>
-              <p className="text-sm text-gray-500 mt-1">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">{editingClient ? "Edit Client Profile" : "Add New Client"}</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
                 {editingClient ? "Modify the client's information below." : "Enter the details of the new client."}
               </p>
             </div>
 
             <div className="space-y-4">
               <div className="space-y-1.5">
-                <label className="text-sm font-semibold text-gray-700">Client / Company Name</label>
+                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Client / Company Name</label>
                 <Input
                   required
                   placeholder="e.g., Acme Corporation"
                   value={formData.name}
                   onChange={e => setFormData({ ...formData, name: e.target.value })}
-                  className="bg-gray-50 border-gray-200 focus:bg-white"
+                  className="bg-gray-50 dark:bg-[#1a1a24] border-gray-200 dark:border-white/10 focus:bg-white dark:bg-gray-900"
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-semibold text-gray-700">Email Address</label>
+                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Email Address</label>
                 <Input
                   required
                   type="email"
                   placeholder="e.g., billing@acme.com"
                   value={formData.email}
                   onChange={e => setFormData({ ...formData, email: e.target.value })}
-                  className="bg-gray-50 border-gray-200 focus:bg-white"
+                  className="bg-gray-50 dark:bg-[#1a1a24] border-gray-200 dark:border-white/10 focus:bg-white dark:bg-gray-900"
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-semibold text-gray-700">Phone Number</label>
+                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Phone Number</label>
                 <Input
                   placeholder="e.g., +92 300 1234567"
                   value={formData.phone}
                   onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                  className="bg-gray-50 border-gray-200 focus:bg-white"
+                  className="bg-gray-50 dark:bg-[#1a1a24] border-gray-200 dark:border-white/10 focus:bg-white dark:bg-gray-900"
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-sm font-semibold text-gray-700">Billing Address</label>
+                <label className="text-sm font-semibold text-gray-700 dark:text-gray-300">Billing Address</label>
                 <Input
                   placeholder="e.g., 15 Main Boulevard, Lahore"
                   value={formData.address}
                   onChange={e => setFormData({ ...formData, address: e.target.value })}
-                  className="bg-gray-50 border-gray-200 focus:bg-white"
+                  className="bg-gray-50 dark:bg-[#1a1a24] border-gray-200 dark:border-white/10 focus:bg-white dark:bg-gray-900"
                 />
               </div>
             </div>
@@ -404,10 +404,10 @@ export default function ClientsPage() {
       {clientToDelete && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setClientToDelete(null)} />
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 animate-fade-in">
+          <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-sm p-6 animate-fade-in">
             <button
               onClick={() => setClientToDelete(null)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors"
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:text-gray-300 transition-colors"
             >
               <X size={20} />
             </button>
@@ -416,8 +416,8 @@ export default function ClientsPage() {
               <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4 text-red-600">
                 <Trash2 size={24} />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Delete Client?</h3>
-              <p className="text-sm text-gray-500">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-2">Delete Client?</h3>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
                 Are you sure you want to delete this client? This action cannot be undone, and this client's profile will be removed from your directory.
               </p>
             </div>

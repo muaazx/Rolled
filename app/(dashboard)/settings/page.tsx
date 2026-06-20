@@ -63,22 +63,22 @@ export default function SettingsPage() {
  <div className="w-full md:w-64 shrink-0">
  <nav className="flex flex-row md:flex-col gap-1 overflow-x-auto hide-scrollbar pb-2 md:pb-0">
  <button onClick={() => setActiveTab("company")}
- className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "company" ? "bg-white dark:bg-white/10 text-primary shadow-sm " : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5"}`}
+ className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "company" ? "bg-white dark:bg-gray-900 dark:bg-white/10 text-primary shadow-sm " : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5"}`}
  >
  <Building size={18} /> Company Profile
  </button>
  <button onClick={() => setActiveTab("tax")}
- className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "tax" ? "bg-white dark:bg-white/10 text-primary shadow-sm " : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5"}`}
+ className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "tax" ? "bg-white dark:bg-gray-900 dark:bg-white/10 text-primary shadow-sm " : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5"}`}
  >
  <Sliders size={18} /> Tax Configuration
  </button>
  <button onClick={() => setActiveTab("users")}
- className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "users" ? "bg-white dark:bg-white/10 text-primary shadow-sm " : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5"}`}
+ className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "users" ? "bg-white dark:bg-gray-900 dark:bg-white/10 text-primary shadow-sm " : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5"}`}
  >
  <Users size={18} /> Users & Roles
  </button>
  <button onClick={() => setActiveTab("audit")}
- className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "audit" ? "bg-white dark:bg-white/10 text-primary shadow-sm " : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5"}`}
+ className={`flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${activeTab === "audit" ? "bg-white dark:bg-gray-900 dark:bg-white/10 text-primary shadow-sm " : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/5"}`}
  >
  <Shield size={18} /> Audit Log
  </button>
@@ -94,12 +94,19 @@ export default function SettingsPage() {
  <CardTitle className="text-lg">Company Profile</CardTitle>
  </CardHeader>
  <CardContent className="p-6 space-y-6">
- <div className="flex items-center gap-6">
- <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center text-primary text-2xl font-bold">
+ <div className="flex items-start gap-6">
+ <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-primary/20 flex items-center justify-center text-primary text-2xl font-bold shrink-0">
  {company.name[0]}
  </div>
- <div>
- <Button variant="secondary" className="mb-2">Upload Logo</Button>
+ <div className="flex flex-col justify-center h-20">
+ <Button variant="secondary" className="mb-2 w-fit" onClick={() => document.getElementById('logo-upload')?.click()}>
+ Upload Logo
+ </Button>
+ <input type="file" id="logo-upload" className="hidden" accept="image/*" onChange={(e) => {
+   if(e.target.files && e.target.files[0]) {
+     alert("Logo uploaded successfully (mocked for demo)!");
+   }
+ }} />
  <p className="text-xs text-gray-500 dark:text-gray-400">Recommended size: 400x400px. Max 2MB.</p>
  </div>
  </div>
@@ -110,7 +117,7 @@ export default function SettingsPage() {
  </div>
  <div className="space-y-2">
  <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Base Currency</label>
- <select className="flex h-10 w-full rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1a1a24] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 dark:text-gray-100 transition-colors">
+ <select className="flex h-10 w-full rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 dark:bg-[#1a1a24] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 dark:text-gray-100 transition-colors">
  <option value="PKR" className="dark:bg-[#1a1a24]">PKR - Pakistani Rupee</option>
  <option value="USD" className="dark:bg-[#1a1a24]">USD - US Dollar</option>
  <option value="EUR" className="dark:bg-[#1a1a24]">EUR - Euro</option>
@@ -140,7 +147,7 @@ export default function SettingsPage() {
  </Card>
 
   <Card>
-    <CardHeader className="bg-gray-50/50 dark:bg-white/5">
+    <CardHeader className="bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50 dark:bg-white/5">
       <CardTitle className="text-lg text-red-600">Danger Zone</CardTitle>
       <CardDescription>Irreversible destructive actions</CardDescription>
     </CardHeader>
@@ -259,7 +266,7 @@ export default function SettingsPage() {
           </div>
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Role</label>
-            <select name="role" required className="flex h-10 w-full rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1a1a24] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 dark:text-gray-100 transition-colors">
+            <select name="role" required className="flex h-10 w-full rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 dark:bg-[#1a1a24] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 dark:text-gray-100 transition-colors">
               <option value="employee" className="dark:bg-[#1a1a24]">Employee</option>
               <option value="hr_manager" className="dark:bg-[#1a1a24]">HR Manager</option>
               <option value="accountant" className="dark:bg-[#1a1a24]">Accountant</option>
@@ -299,7 +306,7 @@ export default function SettingsPage() {
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Tax Calculation Method</label>
-              <select className="flex h-10 w-full rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1a1a24] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 dark:text-gray-100 transition-colors">
+              <select className="flex h-10 w-full rounded-md border border-gray-200 dark:border-white/10 bg-white dark:bg-gray-900 dark:bg-[#1a1a24] px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 dark:text-gray-100 transition-colors">
                 <option value="exclusive" className="dark:bg-[#1a1a24]">Exclusive (Added to Subtotal)</option>
                 <option value="inclusive" className="dark:bg-[#1a1a24]">Inclusive (Included in Price)</option>
               </select>
@@ -308,7 +315,7 @@ export default function SettingsPage() {
           
           <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
             <h4 className="text-sm font-medium mb-3">Payroll Tax Settings</h4>
-            <div className="flex items-center gap-3 bg-gray-50 dark:bg-white/5 p-4 rounded-lg border border-gray-100 dark:border-white/10">
+            <div className="flex items-center gap-3 bg-gray-50 dark:bg-[#1a1a24] dark:bg-white/5 p-4 rounded-lg border border-gray-100 dark:border-gray-800 dark:border-white/10">
               <input type="checkbox" id="auto-deduct" defaultChecked className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary" />
               <div>
                 <label htmlFor="auto-deduct" className="text-sm font-medium text-gray-900 dark:text-gray-100">Automatically calculate employee income tax</label>

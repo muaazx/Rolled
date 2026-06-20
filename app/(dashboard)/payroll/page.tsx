@@ -91,7 +91,7 @@ export default function PayrollPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-bold text-2xl mb-1">Payroll Management</h1>
-          <p className="text-gray-500 text-sm">Run monthly payroll and manage history.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-sm">Run monthly payroll and manage history.</p>
         </div>
       </div>
 
@@ -99,7 +99,7 @@ export default function PayrollPage() {
         <div className="lg:col-span-2 space-y-6">
           {/* Run Payroll Card */}
           <Card>
-            <CardHeader className=" bg-gray-50/50 ">
+            <CardHeader className=" bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50 ">
               <CardTitle className="text-lg">Run Payroll</CardTitle>
               <CardDescription>Process salaries for active employees</CardDescription>
             </CardHeader>
@@ -107,7 +107,7 @@ export default function PayrollPage() {
               <div className="flex flex-col sm:flex-row gap-6">
                 <div className="w-full sm:w-1/3 space-y-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Select Month</label>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Select Month</label>
                     <CustomSelect
                       value={selectedMonth.toString()}
                       onChange={(val) => setSelectedMonth(parseInt(val))}
@@ -117,7 +117,7 @@ export default function PayrollPage() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-700">Select Year</label>
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300">Select Year</label>
                     <CustomSelect
                       value={selectedYear.toString()}
                       onChange={(val) => setSelectedYear(parseInt(val))}
@@ -144,27 +144,27 @@ export default function PayrollPage() {
                   )}
                 </div>
 
-                <div className="w-full sm:w-2/3 bg-gray-50 rounded-lg p-5 flex flex-col justify-center">
-                  <div className="text-sm text-gray-500 mb-4 font-medium uppercase tracking-wider">Projected Summary</div>
+                <div className="w-full sm:w-2/3 bg-gray-50 dark:bg-[#1a1a24] rounded-lg p-5 flex flex-col justify-center">
+                  <div className="text-sm text-gray-500 dark:text-gray-400 mb-4 font-medium uppercase tracking-wider">Projected Summary</div>
                   <div className="grid grid-cols-2 gap-y-4 gap-x-8">
                     <div>
-                      <div className="text-xs text-gray-500">Active Employees</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">Active Employees</div>
                       <div className="text-xl font-semibold mt-1">{activeEmployees.length}</div>
                     </div>
                     <div>
-                      <div className="text-xs text-gray-500">Projected Net Pay</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">Projected Net Pay</div>
                       <div className="text-xl font-semibold mt-1 text-green-700">{formatCurrency(totals.net)}</div>
                     </div>
                     <div>
-                      <div className="text-xs text-gray-500">Gross Pay</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">Gross Pay</div>
                       <div className="text-base font-medium mt-1">{formatCurrency(totals.gross)}</div>
                     </div>
                     <div>
-                      <div className="text-xs text-gray-500">Total Deductions</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400">Total Deductions</div>
                       <div className="text-base font-medium mt-1 text-red-600">{formatCurrency(totals.deductions + totals.tax)}</div>
                     </div>
                   </div>
-                  <div className="mt-4 pt-4 text-xs text-gray-500 flex items-start gap-2">
+                  <div className="mt-4 pt-4 text-xs text-gray-500 dark:text-gray-400 flex items-start gap-2">
                     <Info size={14} className="shrink-0 text-blue-500 mt-0.5" />
                     <p>Tax deductions are calculated per Pakistan FBR slabs. Click Review &amp; Run to see a full employee breakdown before processing.</p>
                   </div>
@@ -175,7 +175,7 @@ export default function PayrollPage() {
 
           {/* Payroll History */}
           <Card>
-            <CardHeader className=" bg-gray-50/50 ">
+            <CardHeader className=" bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50 ">
               <CardTitle className="text-lg">Payroll History</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
@@ -197,7 +197,7 @@ export default function PayrollPage() {
                     }).map((run) => (
                       <tr key={run.id}>
                         <td className="font-medium">{getMonthName(run.month)} {run.year}</td>
-                        <td className="text-gray-500">{run.processedAt}</td>
+                        <td className="text-gray-500 dark:text-gray-400">{run.processedAt}</td>
                         <td>{run.employeeCount}</td>
                         <td className="text-right font-medium">{formatCurrency(run.totalExpense)}</td>
                         <td className="text-right">
@@ -237,14 +237,14 @@ export default function PayrollPage() {
               <CardTitle className="text-lg">Last Run Analysis</CardTitle>
             </CardHeader>
             <CardContent className="pt-2">
-              <p className="text-sm text-gray-700 leading-relaxed">
+              <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
                 {payrollRuns.sort((a,b) => b.month - a.month)[0]?.insights}
               </p>
             </CardContent>
           </Card>
 
           <Card>
-            <CardHeader className=" bg-gray-50/50 ">
+            <CardHeader className=" bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50 ">
               <CardTitle className="text-lg">Department Breakdown</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
@@ -280,7 +280,7 @@ export default function PayrollPage() {
     {(runStatus === 'reviewing' || runStatus === 'running' || runStatus === 'done') && (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
         <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={runStatus === 'reviewing' ? resetModal : undefined} />
-        <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-3xl my-4 overflow-hidden animate-fade-in">
+        <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-3xl my-4 overflow-hidden animate-fade-in">
 
           {/* ── Done state ── */}
           {runStatus === 'done' ? (
@@ -288,8 +288,8 @@ export default function PayrollPage() {
               <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
                 <CheckCircle2 size={40} className="text-green-600" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">Payroll Processed!</h2>
-              <p className="text-gray-500 mb-2">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Payroll Processed!</h2>
+              <p className="text-gray-500 dark:text-gray-400 mb-2">
                 <strong>{getMonthName(selectedMonth)} {selectedYear}</strong> payroll has been run successfully.
               </p>
               <p className="text-3xl font-extrabold text-green-700 mb-6">{formatCurrency(totals.net)}</p>
@@ -300,24 +300,24 @@ export default function PayrollPage() {
           ) : (
             <>
               {/* Modal header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
                 <div>
-                  <h2 className="text-lg font-bold text-gray-900">
+                  <h2 className="text-lg font-bold text-gray-900 dark:text-gray-100">
                     Review Payroll — {getMonthName(selectedMonth)} {selectedYear}
                   </h2>
-                  <p className="text-sm text-gray-500 mt-0.5">{activeEmployees.length} active employees</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{activeEmployees.length} active employees</p>
                 </div>
                 {runStatus === 'reviewing' && (
-                  <button onClick={resetModal} className="text-gray-400 hover:text-gray-700 transition-colors p-1 rounded-lg hover:bg-gray-100">
+                  <button onClick={resetModal} className="text-gray-400 hover:text-gray-700 dark:text-gray-300 transition-colors p-1 rounded-lg hover:bg-gray-100">
                     <X size={18} />
                   </button>
                 )}
               </div>
 
               {/* Totals banner */}
-              <div className="grid grid-cols-4 divide-x divide-gray-100 border-b border-gray-100">
+              <div className="grid grid-cols-4 divide-x divide-gray-100 border-b border-gray-100 dark:border-gray-800">
                 {[
-                  { label: 'Gross Pay',   value: formatCurrency(totals.gross),              color: 'text-gray-900' },
+                  { label: 'Gross Pay',   value: formatCurrency(totals.gross),              color: 'text-gray-900 dark:text-gray-100' },
                   { label: 'Deductions',  value: formatCurrency(totals.deductions),          color: 'text-orange-600' },
                   { label: 'Income Tax',  value: formatCurrency(totals.tax),                 color: 'text-red-600' },
                   { label: 'Net Pay',     value: formatCurrency(totals.net),                 color: 'text-green-700 font-extrabold' },
@@ -332,30 +332,30 @@ export default function PayrollPage() {
               {/* Per-employee table */}
               <div className="max-h-96 overflow-y-auto">
                 <table className="w-full text-sm">
-                  <thead className="sticky top-0 bg-gray-50 border-b border-gray-100">
+                  <thead className="sticky top-0 bg-gray-50 dark:bg-[#1a1a24] border-b border-gray-100 dark:border-gray-800">
                     <tr>
-                      <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Employee</th>
-                      <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Gross</th>
-                      <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Deductions</th>
-                      <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Tax</th>
-                      <th className="text-right px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Net Pay</th>
+                      <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Employee</th>
+                      <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Gross</th>
+                      <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Deductions</th>
+                      <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Tax</th>
+                      <th className="text-right px-5 py-3 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Net Pay</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-50">
                     {preview.map(({ emp, gross, deductions, tax, net }) => (
-                      <tr key={emp.id} className="hover:bg-gray-50/60 transition-colors">
+                      <tr key={emp.id} className="hover:bg-gray-50 dark:bg-[#1a1a24]/60 transition-colors">
                         <td className="px-5 py-3.5">
                           <div className="flex items-center gap-2.5">
                             <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-xs font-bold text-primary shrink-0">
                               {emp.name.split(' ').map(w => w[0]).join('').slice(0, 2)}
                             </div>
                             <div>
-                              <p className="font-medium text-gray-900">{emp.name}</p>
+                              <p className="font-medium text-gray-900 dark:text-gray-100">{emp.name}</p>
                               <p className="text-xs text-gray-400">{emp.designation} · {emp.department}</p>
                             </div>
                           </div>
                         </td>
-                        <td className="px-4 py-3.5 text-right text-gray-700">{formatCurrency(gross)}</td>
+                        <td className="px-4 py-3.5 text-right text-gray-700 dark:text-gray-300">{formatCurrency(gross)}</td>
                         <td className="px-4 py-3.5 text-right text-orange-600">−{formatCurrency(deductions)}</td>
                         <td className="px-4 py-3.5 text-right text-red-600">−{formatCurrency(tax)}</td>
                         <td className="px-5 py-3.5 text-right font-semibold text-green-700">{formatCurrency(net)}</td>
@@ -366,8 +366,8 @@ export default function PayrollPage() {
               </div>
 
               {/* Footer */}
-              <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between bg-gray-50/50">
-                <p className="text-xs text-gray-500 flex items-center gap-1.5">
+              <div className="px-6 py-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between bg-gray-50 dark:bg-[#1a1a24]/50 dark:bg-gray-800/50">
+                <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
                   <Info size={13} className="text-blue-500 shrink-0" />
                   This action will record a payroll run and generate salary slips.
                 </p>
@@ -398,12 +398,12 @@ export default function PayrollPage() {
     {rollbackId && (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setRollbackId(null)} />
-        <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 animate-fade-in">
+        <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-sm p-6 animate-fade-in">
           <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <AlertTriangle size={22} className="text-red-600" />
           </div>
-          <h3 className="text-lg font-bold text-center text-gray-900 mb-2">Rollback Payroll?</h3>
-          <p className="text-sm text-gray-500 text-center mb-6">
+          <h3 className="text-lg font-bold text-center text-gray-900 dark:text-gray-100 mb-2">Rollback Payroll?</h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 text-center mb-6">
             This will remove this payroll run from history. Salary slips generated for this period will also be voided. This cannot be undone.
           </p>
           <div className="flex gap-3">
